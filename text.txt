@@ -1,0 +1,7 @@
+
+
+transition:all 1.00s;
+transform:scale(2)
+
+this means the time it takes to change a class dexcription
+scale increases the size of the image
