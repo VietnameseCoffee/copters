@@ -9,7 +9,7 @@ adding their own beat to it. In addition each synth hit generates a colorful ani
 ## Functions MVPs
 
 [ ] Have an interface of a synthesizer and a record player
-[ ] Create sounds on hitting a key
+[ ] Create sounds upon hitting a key
 [ ] eye-catching animations that go along with the music generated
 [ ] select songs to add to the record player
 [ ] scratch music based on mouse movements

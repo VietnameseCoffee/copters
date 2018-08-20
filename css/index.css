@@ -1,0 +1,19 @@
+body {
+  background-color: #f9f9f9;
+}
+
+#canvas-container {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 1000px;
+  height: 700px;
+}
+
+#canvas {
+
+  width: 800px;
+  height: 540px;
+  border: 1px solid blue;
+  border-radius: 2px;;
+}
