@@ -1,8 +1,8 @@
-# js-project, Music Den
+# Music Cove
 
 ## Background Overview
 
-Music Den is a small scale tool for creating music with a synthesizer board to with a multitude of sounds along with a single
+Music Cove is a small scale tool for creating music with a synthesizer board to with a multitude of sounds along with a single
 record player to dj. This allows the artist to create his own original beats or even remix on existing songs by scractching and
 adding their own beat to it. In addition each synth hit generates a colorful animation to match with your creation.
 
@@ -34,3 +34,6 @@ Day 3: Ensure music is playing properly when hit on the synthesizer,
 Day 4: Create animations for music hits and scratches.
 
 Day 5: style and polish.
+
+Bonus:
+Allow importing of other audio for the record. and saving regular repeats in audio.
