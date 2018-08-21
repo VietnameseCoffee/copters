@@ -1,4 +1,4 @@
-
+import Collidable from './collidable';
 
 const canvas = document.getElementById("canvas");
 
@@ -78,5 +78,7 @@ const animate = () => {
 
   requestAnimationFrame(animate);
 };
+
+
 
 animate();

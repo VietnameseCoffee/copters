@@ -1,6 +1,6 @@
 
 
-class Object {
+class Collidable {
 
   constructor(x, y) {
     this.x = x;
@@ -8,8 +8,10 @@ class Object {
 
   }
 
-  draw() {
+  draw(c) {
 
   }
 
 }
+
+export default Collidable;
