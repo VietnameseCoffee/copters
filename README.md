@@ -1,41 +1,36 @@
-# J-Studio
+# Copters
 
 ## Background Overview
 
-J-Studio is a small scale tool for creating music with a synthesizer board to with a multitude of sounds along with a single
-record player to dj. This allows the artist to create his own original beats or even remix on existing songs by scractching and
-adding their own beat to it. In addition each synth hit generates a colorful animation to match with your creation.
+The Copters is a little javascript game similar to the infamous Helicopter Game where the player flies a helicopter through the air trying to avoid walls and obstacles. This is a simple 
 
 ## Functions MVPs
 
-[ ] Have an interface of a synthesizer and a record player
-[ ] Create sounds upon hitting a key
-[ ] eye-catching animations that go along with the music generated
-[ ] select songs to add to the record player
-[ ] scratch music based on mouse movements
+[ ] Render the helicopter and obstacles
+[ ] Create gravity and lift for the helicopter
+[ ] Add audio files for sounds 
+[ ] Implement a score system
+[ ] Bonus: Node back for high score keeping
 
 ## Technologies
 
 This app will implement the following
-* Vanilla Javascript for handling events
+* Vanilla Javascript for handling key events
 * Canvas to render the app and its apposite animations
-* Web Audio API to generate sounds from the synth and selected records
+* Web Audio API to generate sounds 
 * Webpack to manage dependencies
 
 Timeline
 
-Day 1: Create the proper node packages and canvas, Learn about web audio api. Make sure a canvas page is present.
+DAy 2: render the board helicopter and obstacles and walls, Understand basic movement and gravity
 
-DAy 2: render the board and start integrating web audio api to the app, research vanilla javascript and canvas on how mouse
-overs and dragging works for scratching.
+Day 3: Clean up velocities of obstacles and acceleration for the helicopter, understand how to create audio on events
 
-Day 3: Ensure music is playing properly when hit on the synthesizer,
+Day 4: Generate the game logic of when the player loses by collision of objects, implement basic audio for on click events
 
-Day 4: Create animations for music hits and scratches.
-
-Day 5: style and polish.
+Day 5: style and polish, score keep, extraneous animations smoke fire etc
 
 Bonus:
-Allow importing of other audio for the record. and saving regular repeats in audio.
+Node backend for high score keeping
 
-[wireframe](https://raw.githubusercontent.com/VietnameseCoffee/js-project/master/photos/wireframe.png)
+[Link to Original Helicopter game image](https://www.gamesloon.com/games/screenshots/origineel/194.jpg)
