@@ -6,6 +6,13 @@ The Copters is a little javascript game similar to the infamous Helicopter Game 
 
 ## Functions MVPs
 
+
+[ ] Have an interface of a synthesizer and a record player
+[ ] Create sounds upon hitting a key
+[ ] eye-catching animations that go along with the music generated
+[ ] select songs to add to the record player
+[ ] scratch music based on mouse movements
+
 [ ] Render the helicopter and obstacles
 [ ] Create gravity and lift for the helicopter
 [ ] Add audio files for sounds 
