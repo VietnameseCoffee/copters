@@ -18,4 +18,8 @@ c.beginPath();
 c.arc(100,75,50,0,2*Math.PI);
 c.stroke();
 
-c.clearRect(0, 0,100, 100);
+c.beginPath();
+c.ellipse(200, 200, 50, 10, 0, 0, 2*Math.PI);
+c.stroke();
+
+c.clearRect(0, 0, 100, 100);
