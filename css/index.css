@@ -5,15 +5,4 @@ body {
 #canvas-container {
   display: flex;
   justify-content: center;
-  margin: 0 auto;
-  width: 1000px;
-  height: 800px;
-}
-
-#canvas {
-
-  width: 900px;
-  height: 600px;
-  border: 1px solid blue;
-  border-radius: 2px;;
 }
