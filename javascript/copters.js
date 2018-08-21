@@ -45,7 +45,6 @@ c.stroke();
 let i = 0;
 
 const animate = () => {
-
   c.clearRect(0,0, 900, 600);
   // Copter
 
@@ -72,9 +71,11 @@ const animate = () => {
 
   // circle
   c.beginPath();
-  c.arc(400 + i, 200 , 50, 0, 2*Math.PI);
+  c.fillRect(400 + i, 200 , 20, 50);
+  c.strokeStyle="red";
   c.stroke();
   i = i + 1;
+
   requestAnimationFrame(animate);
 };
 
