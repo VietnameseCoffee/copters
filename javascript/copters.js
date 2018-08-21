@@ -15,6 +15,9 @@ c.beginPath();
 c.arc(100,75,50,0,2*Math.PI);
 c.stroke();
 
+
+// Copter
+
 c.beginPath();
 c.ellipse(200, 200, 40, 10, 0, 0, 2*Math.PI);
 c.stroke();
@@ -34,3 +37,20 @@ c.stroke();
 c.beginPath();
 c.arc(145,210,6,0,2*Math.PI);
 c.stroke();
+
+c.beginPath();
+c.arc(400, 200, 50, 0, 2*Math.PI);
+c.stroke();
+
+let i = 0;
+
+const animate = () => {
+  console.log(i);
+  c.beginPath();
+  c.arc(400 + i, 200 , 50, 0, 2*Math.PI);
+  c.stroke();
+  i = i + 1;
+  requestAnimationFrame(animate);
+};
+
+// animate();
