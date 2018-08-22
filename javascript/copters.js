@@ -54,6 +54,7 @@ g.play();
 
 
 canvas.addEventListener('mousedown',() => {
+  clearInterval(engine)
   engine = setInterval(() => g.lift(), 50)
 })
 canvas.addEventListener('mouseup',() => {

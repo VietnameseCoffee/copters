@@ -247,6 +247,7 @@ g.play();
 
 
 canvas.addEventListener('mousedown',() => {
+  clearInterval(engine)
   engine = setInterval(() => g.lift(), 50)
 })
 canvas.addEventListener('mouseup',() => {
@@ -317,11 +318,14 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   lift() {
-    this.g = -0.2;
+    if (this.v > 1) {
+      this.v = this.v - 0.6;
+    }
+    this.g = -0.18;
   }
 
   unlift() {
-    this.g = 0.1;
+    this.g = 0.23;
   }
 }
 
