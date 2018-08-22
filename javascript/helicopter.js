@@ -1,18 +1,19 @@
 import Collidable from './collidable';
 
 
-class Helicopter extends Collidable{
+class Helicopter extends Collidable {
 
   constructor(x, y) {
     super(x, y)
     this.width = 103;
     this.height = 50;
     this.draw = this.draw.bind(this);
+    this.move = this.move.bind(this);
   }
 
   draw(c) {
     // Copter
-    console.log("hit");
+    console.log(this);
 
     // blades
     c.beginPath();
@@ -36,8 +37,9 @@ class Helicopter extends Collidable{
     c.stroke();
   }
 
-  move() {
-
+  move(c) {
+    this.y++;
+    this.draw(c)
   }
 }
 

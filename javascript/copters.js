@@ -1,4 +1,5 @@
 import Helicopter from './helicopter';
+import Brick from './brick';
 
 const canvas = document.getElementById("canvas");
 
@@ -10,24 +11,21 @@ canvas.height = 640;
 const c = canvas.getContext('2d');
 
 let copter = new Helicopter(150, 150);
+let brick = new Brick(1000, 200)
 
 
 let i = 0;
 
 const animate = () => {
-  c.clearRect(0,0, 900, 600);
+  c.clearRect(0,0, 1000, 640);
 
-  copter.draw(c)
+  copter.move(c);
+  brick.move(c);
 
   // circle
 
-  c.beginPath();
-  c.fillStyle="red";
-  c.fillRect(900 - i, 200 , 20, 50);
-  c.stroke();
-  i = i + 1;
 
-  // requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 };
 
 animate();

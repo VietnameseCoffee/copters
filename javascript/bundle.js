@@ -86,6 +86,46 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./javascript/brick.js":
+/*!*****************************!*\
+  !*** ./javascript/brick.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _collidable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collidable */ "./javascript/collidable.js");
+
+
+
+class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
+
+  constructor(x, y) {
+    super(x, y)
+    this.width = 40;
+    this.height = 70;
+    this.draw = this.draw.bind(this);
+    this.move = this.move.bind(this);
+  }
+
+  draw(c) {
+    c.beginPath();
+    c.strokeRect((this.x),(this.y), this.width, this.height);
+    c.stroke();
+  }
+
+  move(c) {
+    this.x = this.x - 3;
+    this.draw(c)
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Brick);
+
+
+/***/ }),
+
 /***/ "./javascript/collidable.js":
 /*!**********************************!*\
   !*** ./javascript/collidable.js ***!
@@ -126,6 +166,8 @@ class Collidable {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helicopter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helicopter */ "./javascript/helicopter.js");
+/* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
+
 
 
 const canvas = document.getElementById("canvas");
@@ -138,24 +180,21 @@ canvas.height = 640;
 const c = canvas.getContext('2d');
 
 let copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](150, 150);
+let brick = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](1000, 200)
 
 
 let i = 0;
 
 const animate = () => {
-  c.clearRect(0,0, 900, 600);
+  c.clearRect(0,0, 1000, 640);
 
-  copter.draw(c)
+  copter.move(c);
+  brick.move(c);
 
   // circle
 
-  c.beginPath();
-  c.fillStyle="red";
-  c.fillRect(900 - i, 200 , 20, 50);
-  c.stroke();
-  i = i + 1;
 
-  // requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 };
 
 animate();
@@ -179,18 +218,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"]{
+class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   constructor(x, y) {
     super(x, y)
     this.width = 103;
     this.height = 50;
     this.draw = this.draw.bind(this);
+    this.move = this.move.bind(this);
   }
 
   draw(c) {
     // Copter
-    console.log("hit");
+    console.log(this);
 
     // blades
     c.beginPath();
@@ -214,8 +254,9 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"]{
     c.stroke();
   }
 
-  move() {
-
+  move(c) {
+    this.y++;
+    this.draw(c)
   }
 }
 
