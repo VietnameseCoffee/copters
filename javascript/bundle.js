@@ -231,21 +231,28 @@ class CoptersGame {
   lift() {
     this.copter.lift();
   }
+
+  unlift() {
+    this.copter.unlift();
+  }
 }
 
-
+let engine = null;
 
 
 let g = new CoptersGame(c);
 g.play();
 
-canvas.addEventListener('click', () => g.lift())
+// canvas.addEventListener('click', () => g.lift())
+
+
 canvas.addEventListener('mousedown',() => {
-  setInterval(() => console.log("hi"), 50)
+  engine = setInterval(() => g.lift(), 50)
 })
-// canvas.addEventListener('mouseup',() => {
-//   setInterval(() => console.log("hi"), 50)
-// })
+canvas.addEventListener('mouseup',() => {
+  clearInterval(engine);
+  engine = setInterval(() => g.unlift(), 50)
+})
 
 
 /***/ }),
@@ -269,7 +276,7 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(x, y, v)
     this.width = 90;
     this.height = 47;
-    this.g = 0;
+    this.g = 0.1;
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
@@ -310,7 +317,11 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   lift() {
-    this.v = this.v + 2;
+    this.g = -0.2;
+  }
+
+  unlift() {
+    this.g = 0.1;
   }
 }
 

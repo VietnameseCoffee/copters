@@ -7,7 +7,7 @@ class Helicopter extends Collidable {
     super(x, y, v)
     this.width = 90;
     this.height = 47;
-    this.g = 0;
+    this.g = 0.1;
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
@@ -48,7 +48,11 @@ class Helicopter extends Collidable {
   }
 
   lift() {
-    this.v = this.v + 2;
+    this.g = -0.2;
+  }
+
+  unlift() {
+    this.g = 0.1;
   }
 }
 

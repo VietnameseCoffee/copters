@@ -38,18 +38,25 @@ class CoptersGame {
   lift() {
     this.copter.lift();
   }
+
+  unlift() {
+    this.copter.unlift();
+  }
 }
 
-
+let engine = null;
 
 
 let g = new CoptersGame(c);
 g.play();
 
-canvas.addEventListener('click', () => g.lift())
+// canvas.addEventListener('click', () => g.lift())
+
+
 canvas.addEventListener('mousedown',() => {
-  setInterval(() => console.log("hi"), 50)
+  engine = setInterval(() => g.lift(), 50)
 })
-// canvas.addEventListener('mouseup',() => {
-//   setInterval(() => console.log("hi"), 50)
-// })
+canvas.addEventListener('mouseup',() => {
+  clearInterval(engine);
+  engine = setInterval(() => g.unlift(), 50)
+})
