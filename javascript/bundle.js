@@ -101,10 +101,10 @@ __webpack_require__.r(__webpack_exports__);
 
 class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
-  constructor(x, y, v) {
+  constructor(x, y, v, width, height) {
     super(x, y, v)
-    this.width = 40;
-    this.height = 70;
+    this.width = width;
+    this.height = height;
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
   }
@@ -144,7 +144,7 @@ class Collidable {
     this.y = y;
     this.v = v;
 
-    this.didCollide = this.didCollide.bind(this);
+    this.safe = this.safe.bind(this);
   }
 
   draw(c) {
@@ -155,7 +155,7 @@ class Collidable {
 
   }
 
-  didCollide(obj) {
+  safe(obj) {
 
     const thisFront = this.x + this.width;
     const thisBack = this.x;
@@ -166,11 +166,12 @@ class Collidable {
     const objBack = obj.x;
     const objTop = obj.y;
     const objBottom = obj.y + obj.height;
-
+    //
     if (thisFront > objBack && thisBack < objFront) {
       console.log(thisBottom > objTop && thisTop < objBottom)
-      return (thisBottom > objTop && thisTop < objBottom)
+      return (!(thisBottom > objTop && thisTop < objBottom))
     }
+    return (true)
   }
 
 }
@@ -205,7 +206,9 @@ class CoptersGame {
   constructor(c) {
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](150, 100, 0);
     this.c = c;
-    this.brick = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](500, 250, 3);
+    this.brick = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](500, 250, 3, 30, 70);
+    this.wall = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 630, 0, 1000, 10);
+    this.obstacles = []
 
     this.animate = this.animate.bind(this);
     this.lift = this.lift.bind(this);
@@ -219,8 +222,9 @@ class CoptersGame {
     this.c.clearRect(0,0, 1000, 640);
     this.copter.move(this.c);
     this.brick.move(this.c);
-
-    if (!this.copter.didCollide(this.brick)) {
+    this.wall.draw(this.c)
+    console.log(this.copter.safe(this.brick))
+    if ((this.copter.safe(this.brick))) {
       requestAnimationFrame(this.animate);
     } else {
       // boombooms

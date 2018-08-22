@@ -7,7 +7,7 @@ class Collidable {
     this.y = y;
     this.v = v;
 
-    this.didCollide = this.didCollide.bind(this);
+    this.safe = this.safe.bind(this);
   }
 
   draw(c) {
@@ -18,7 +18,7 @@ class Collidable {
 
   }
 
-  didCollide(obj) {
+  safe(obj) {
 
     const thisFront = this.x + this.width;
     const thisBack = this.x;
@@ -29,11 +29,12 @@ class Collidable {
     const objBack = obj.x;
     const objTop = obj.y;
     const objBottom = obj.y + obj.height;
-
+    //
     if (thisFront > objBack && thisBack < objFront) {
       console.log(thisBottom > objTop && thisTop < objBottom)
-      return (thisBottom > objTop && thisTop < objBottom)
+      return (!(thisBottom > objTop && thisTop < objBottom))
     }
+    return (true)
   }
 
 }

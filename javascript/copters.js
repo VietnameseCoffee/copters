@@ -12,7 +12,9 @@ class CoptersGame {
   constructor(c) {
     this.copter = new Helicopter(150, 100, 0);
     this.c = c;
-    this.brick = new Brick(500, 250, 3);
+    this.brick = new Brick(500, 250, 3, 30, 70);
+    this.wall = new Brick(0, 630, 0, 1000, 10);
+    this.obstacles = []
 
     this.animate = this.animate.bind(this);
     this.lift = this.lift.bind(this);
@@ -26,8 +28,9 @@ class CoptersGame {
     this.c.clearRect(0,0, 1000, 640);
     this.copter.move(this.c);
     this.brick.move(this.c);
-
-    if (!this.copter.didCollide(this.brick)) {
+    this.wall.draw(this.c)
+    console.log(this.copter.safe(this.brick))
+    if ((this.copter.safe(this.brick))) {
       requestAnimationFrame(this.animate);
     } else {
       // boombooms

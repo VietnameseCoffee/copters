@@ -3,10 +3,10 @@ import Collidable from './collidable';
 
 class Brick extends Collidable {
 
-  constructor(x, y, v) {
+  constructor(x, y, v, width, height) {
     super(x, y, v)
-    this.width = 40;
-    this.height = 70;
+    this.width = width;
+    this.height = height;
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
   }
