@@ -3,8 +3,8 @@ import Collidable from './collidable';
 
 class Brick extends Collidable {
 
-  constructor(x, y) {
-    super(x, y)
+  constructor(x, y, v) {
+    super(x, y, v)
     this.width = 40;
     this.height = 70;
     this.draw = this.draw.bind(this);
@@ -18,7 +18,8 @@ class Brick extends Collidable {
   }
 
   move(c) {
-    this.x = this.x - 3;
+    console.log(this.v)
+    this.x = this.x - this.v;
     this.draw(c)
   }
 }

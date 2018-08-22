@@ -101,8 +101,8 @@ __webpack_require__.r(__webpack_exports__);
 
 class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
-  constructor(x, y) {
-    super(x, y)
+  constructor(x, y, v) {
+    super(x, y, v)
     this.width = 40;
     this.height = 70;
     this.draw = this.draw.bind(this);
@@ -116,7 +116,8 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   move(c) {
-    this.x = this.x - 3;
+    console.log(this.v)
+    this.x = this.x - this.v;
     this.draw(c)
   }
 }
@@ -139,15 +140,21 @@ __webpack_require__.r(__webpack_exports__);
 
 class Collidable {
 
-  constructor(x, y) {
+  constructor(x, y, v) {
     this.x = x;
     this.y = y;
+    this.v = v;
 
   }
 
   draw(c) {
 
   }
+
+  move(c) {
+
+  }
+
 
 }
 
@@ -172,15 +179,13 @@ __webpack_require__.r(__webpack_exports__);
 
 const canvas = document.getElementById("canvas");
 
-console.log(canvas)
-
 canvas.width = 1000;
 canvas.height = 640;
 
 const c = canvas.getContext('2d');
 
-let copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](150, 150);
-let brick = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](1000, 200)
+let copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](150, 150, 1);
+let brick = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](1000, 200, 3)
 
 
 let i = 0;
@@ -191,16 +196,21 @@ const animate = () => {
   copter.move(c);
   brick.move(c);
 
-  // circle
-
-
   requestAnimationFrame(animate);
 };
 
+
 animate();
 
-c.strokeStyle="blue";
-c.strokeRect(150, 150, 103, 50)
+
+class CoptersGame {
+
+  constructor(c) {
+    this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](150, 150)
+    this.c = c;
+  }
+
+}
 
 
 /***/ }),
@@ -220,18 +230,16 @@ __webpack_require__.r(__webpack_exports__);
 
 class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
-  constructor(x, y) {
-    super(x, y)
+  constructor(x, y, v) {
+    super(x, y, v)
     this.width = 103;
     this.height = 50;
+
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
   }
 
   draw(c) {
-    // Copter
-    console.log(this);
-
     // blades
     c.beginPath();
     c.ellipse((this.x + 60), (this.y + 12), 40, 10, 0, 0, 2*Math.PI);
@@ -255,7 +263,7 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   move(c) {
-    this.y++;
+    this.y = this.y + this.v;
     this.draw(c)
   }
 }
