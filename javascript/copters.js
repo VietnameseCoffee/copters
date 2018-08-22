@@ -19,7 +19,6 @@ class CoptersGame {
 
   play() {
     this.animate();
-
   }
 
   animate() {
@@ -32,6 +31,9 @@ class CoptersGame {
 
     if (!this.copter.didCollide(this.brick)) {
       requestAnimationFrame(this.animate);
+    } else {
+      // boombooms
+      // game over show score
     }
 
   }
