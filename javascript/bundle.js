@@ -116,7 +116,6 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   move(c) {
-    console.log(this.v)
     this.x = this.x - this.v;
     this.draw(c)
   }
@@ -247,6 +246,8 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(x, y, v)
     this.width = 103;
     this.height = 50;
+    this.g = 0.5;
+    this.score = 1
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
@@ -276,8 +277,10 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   move(c) {
+    this.v = this.v + this.g;
     this.y = this.y + this.v;
-    this.draw(c)
+    this.score = this.score += 1;
+    this.draw(c);
   }
 }
 

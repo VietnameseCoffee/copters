@@ -18,7 +18,6 @@ class Brick extends Collidable {
   }
 
   move(c) {
-    console.log(this.v)
     this.x = this.x - this.v;
     this.draw(c)
   }
