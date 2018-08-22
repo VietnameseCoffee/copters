@@ -167,17 +167,11 @@ class Collidable {
     const objTop = obj.y;
     const objBottom = obj.y + obj.height;
 
-    // console.log(thisFront, thisBack, thisTop, thisBottom)
-    // console.log(objFront, objBack, objTop, objBottom)
-
-    // console.log(thisFront > objBack && thisBack < objFront)
-    console.log(thisTop > objBottom && thisBottom < objTop)
-
-
-
-
+    if (thisFront > objBack && thisBack < objFront) {
+      console.log(thisBottom > objTop && thisTop < objBottom)
+      return (thisBottom > objTop && thisTop < objBottom)
+    }
   }
-
 
 }
 
@@ -209,21 +203,21 @@ const c = canvas.getContext('2d');
 class CoptersGame {
 
   constructor(c) {
-    this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](150, 150, 1);
+    this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](150, 100, 0);
     this.c = c;
-    this.brick = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](500, 200, 0);
+    this.brick = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](500, 250, 3);
 
     this.animate = this.animate.bind(this);
   }
 
   play() {
-
+    this.animate();
   }
 
   animate() {
+    this.copter.didCollide(this.brick);
     this.c.clearRect(0,0, 1000, 640);
 
-    this.copter.didCollide(this.brick);
     this.copter.move(this.c);
     this.brick.move(this.c);
 
@@ -234,7 +228,7 @@ class CoptersGame {
 
 let g = new CoptersGame(c);
 
-g.animate();
+g.play();
 
 
 /***/ }),
@@ -258,7 +252,7 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(x, y, v)
     this.width = 103;
     this.height = 50;
-    this.g = 0.5;
+    this.g = 0.2;
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
@@ -292,8 +286,8 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   move(c) {
-    // this.v = this.v + this.g;
-    // this.y = this.y + this.v;
+    this.v = this.v + this.g;
+    this.y = this.y + this.v;
 
     this.draw(c);
   }
