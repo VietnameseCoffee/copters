@@ -19,16 +19,21 @@ class CoptersGame {
 
   play() {
     this.animate();
+
   }
 
   animate() {
-    this.copter.didCollide(this.brick);
     this.c.clearRect(0,0, 1000, 640);
 
     this.copter.move(this.c);
     this.brick.move(this.c);
 
-    requestAnimationFrame(this.animate);
+
+
+    if (!this.copter.didCollide(this.brick)) {
+      requestAnimationFrame(this.animate);
+    }
+
   }
 
 }

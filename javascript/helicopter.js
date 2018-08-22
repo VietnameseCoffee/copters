@@ -6,8 +6,8 @@ class Helicopter extends Collidable {
   constructor(x, y, v) {
     super(x, y, v)
     this.width = 103;
-    this.height = 50;
-    this.g = 0.2;
+    this.height = 48;
+    this.g = 0;
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
@@ -16,7 +16,7 @@ class Helicopter extends Collidable {
   draw(c) {
     // blades
     c.beginPath();
-    c.ellipse((this.x + 60), (this.y + 12), 40, 10, 0, 0, 2*Math.PI);
+    c.ellipse((this.x + 52), (this.y + 4), 40, 10, 0, 0, 2*Math.PI);
     c.stroke();
     // fuselage
     c.beginPath();
@@ -28,21 +28,21 @@ class Helicopter extends Collidable {
     c.stroke();
     // tail boom
     c.beginPath();
-    c.strokeRect((this.x+8), (this.y+23), 30, 7);
+    c.strokeRect((this.x+8), (this.y+23), 22, 7);
     c.stroke();
     // steering blades
     c.beginPath();
     c.arc((this.x+8), (this.y+23),6,0,2*Math.PI);
     c.stroke();
     //box
-    c.beginPath();
-    c.strokeRect((this.x), (this.y), 103, 50);
-    c.stroke();
+    // c.beginPath();
+    // c.strokeRect((this.x), (this.y), 103, 40);
+    // c.stroke();
   }
 
   move(c) {
     this.v = this.v + this.g;
-    this.y = this.y + this.v;
+    this.y = this.y + 0.8;
 
     this.draw(c);
   }
