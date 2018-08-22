@@ -224,7 +224,7 @@ class CoptersGame {
     this.brick.move(this.c);
     this.wall.draw(this.c)
     console.log(this.copter.safe(this.brick))
-    if ((this.copter.safe(this.brick))) {
+    if ((this.copter.safe(this.brick) && this.copter.safe(this.wall))) {
       requestAnimationFrame(this.animate);
     } else {
       // boombooms
