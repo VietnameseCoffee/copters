@@ -8,7 +8,6 @@ class Helicopter extends Collidable {
     this.width = 103;
     this.height = 50;
     this.g = 0.5;
-    this.score = 1
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
@@ -35,12 +34,16 @@ class Helicopter extends Collidable {
     c.beginPath();
     c.arc((this.x+8), (this.y+23),6,0,2*Math.PI);
     c.stroke();
+    //box
+    c.beginPath();
+    c.strokeRect((this.x), (this.y), 103, 50);
+    c.stroke();
   }
 
   move(c) {
-    this.v = this.v + this.g;
-    this.y = this.y + this.v;
-    this.score = this.score += 1;
+    // this.v = this.v + this.g;
+    // this.y = this.y + this.v;
+
     this.draw(c);
   }
 }

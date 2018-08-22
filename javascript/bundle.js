@@ -144,6 +144,7 @@ class Collidable {
     this.y = y;
     this.v = v;
 
+    this.didCollide = this.didCollide.bind(this);
   }
 
   draw(c) {
@@ -151,6 +152,29 @@ class Collidable {
   }
 
   move(c) {
+
+  }
+
+  didCollide(obj) {
+
+    const thisFront = this.x + this.width;
+    const thisBack = this.x;
+    const thisTop = this.y;
+    const thisBottom = this.y + this.height;
+
+    const objFront = obj.x + obj.width;
+    const objBack = obj.x;
+    const objTop = obj.y;
+    const objBottom = obj.y + obj.height;
+
+    // console.log(thisFront, thisBack, thisTop, thisBottom)
+    // console.log(objFront, objBack, objTop, objBottom)
+
+    // console.log(thisFront > objBack && thisBack < objFront)
+    console.log(thisTop > objBottom && thisBottom < objTop)
+
+
+
 
   }
 
@@ -181,26 +205,13 @@ canvas.width = 1000;
 canvas.height = 640;
 const c = canvas.getContext('2d');
 
-// let copter = new Helicopter(150, 150, 1);
-// let brick = new Brick(1000, 200, 3)
-//
-// const animate = () => {
-//   c.clearRect(0,0, 1000, 640);
-//
-//   copter.move(c);
-//   brick.move(c);
-//
-//   requestAnimationFrame(animate);
-// };
-// animate();
-
 
 class CoptersGame {
 
   constructor(c) {
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](150, 150, 1);
     this.c = c;
-    this.brick = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](1000, 200, 3);
+    this.brick = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](500, 200, 0);
 
     this.animate = this.animate.bind(this);
   }
@@ -212,6 +223,7 @@ class CoptersGame {
   animate() {
     this.c.clearRect(0,0, 1000, 640);
 
+    this.copter.didCollide(this.brick);
     this.copter.move(this.c);
     this.brick.move(this.c);
 
@@ -247,7 +259,6 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     this.width = 103;
     this.height = 50;
     this.g = 0.5;
-    this.score = 1
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
@@ -274,12 +285,16 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     c.beginPath();
     c.arc((this.x+8), (this.y+23),6,0,2*Math.PI);
     c.stroke();
+    //box
+    c.beginPath();
+    c.strokeRect((this.x), (this.y), 103, 50);
+    c.stroke();
   }
 
   move(c) {
-    this.v = this.v + this.g;
-    this.y = this.y + this.v;
-    this.score = this.score += 1;
+    // this.v = this.v + this.g;
+    // this.y = this.y + this.v;
+
     this.draw(c);
   }
 }
