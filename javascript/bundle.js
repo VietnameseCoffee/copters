@@ -132,37 +132,36 @@ const canvas = document.getElementById("canvas");
 
 console.log(canvas)
 
-canvas.width = 900;
+canvas.width = 1000;
 canvas.height = 640;
 
 const c = canvas.getContext('2d');
 
+let copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](150, 150);
 
-
-c.beginPath();
-c.arc(100,75,50,0,2*Math.PI);
-c.stroke();
 
 let i = 0;
 
 const animate = () => {
   c.clearRect(0,0, 900, 600);
 
+  copter.draw(c)
+
   // circle
+
   c.beginPath();
   c.fillStyle="red";
-  c.fillRect(400 + i, 200 , 20, 50);
+  c.fillRect(900 - i, 200 , 20, 50);
   c.stroke();
   i = i + 1;
 
-  requestAnimationFrame(animate);
+  // requestAnimationFrame(animate);
 };
 
-// animate();
+animate();
 
-
-let copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](200, 200);
-copter.draw(c)
+c.strokeStyle="blue";
+c.strokeRect(150, 150, 103, 50)
 
 
 /***/ }),
@@ -184,33 +183,39 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"]{
 
   constructor(x, y) {
     super(x, y)
-    this.width = 90;
-    this.height = 30;
+    this.width = 103;
+    this.height = 50;
     this.draw = this.draw.bind(this);
   }
 
   draw(c) {
     // Copter
     console.log("hit");
-    c.beginPath();
-    c.ellipse(200, 200, 40, 10, 0, 0, 2*Math.PI);
-    c.stroke();
 
+    // blades
     c.beginPath();
-    c.strokeRect(175, 205, 50, 25);
+    c.ellipse((this.x + 60), (this.y + 12), 40, 10, 0, 0, 2*Math.PI);
     c.stroke();
+    // fuselage
+    c.beginPath();
+    c.strokeRect((this.x+38),(this.y+15), 50, 25);
+    c.stroke();
+    // landing skids
+    c.beginPath();
+    c.strokeRect((this.x+32), (this.y+43), 65, 3);
+    c.stroke();
+    // tail boom
+    c.beginPath();
+    c.strokeRect((this.x+8), (this.y+23), 30, 7);
+    c.stroke();
+    // steering blades
+    c.beginPath();
+    c.arc((this.x+8), (this.y+23),6,0,2*Math.PI);
+    c.stroke();
+  }
 
-    c.beginPath();
-    c.strokeRect(170, 233, 65, 3);
-    c.stroke();
+  move() {
 
-    c.beginPath();
-    c.strokeRect(145, 210, 30, 7);
-    c.stroke();
-
-    c.beginPath();
-    c.arc(145,210,6,0,2*Math.PI);
-    c.stroke();
   }
 }
 

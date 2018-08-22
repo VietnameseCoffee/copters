@@ -4,34 +4,33 @@ const canvas = document.getElementById("canvas");
 
 console.log(canvas)
 
-canvas.width = 900;
+canvas.width = 1000;
 canvas.height = 640;
 
 const c = canvas.getContext('2d');
 
+let copter = new Helicopter(150, 150);
 
-
-c.beginPath();
-c.arc(100,75,50,0,2*Math.PI);
-c.stroke();
 
 let i = 0;
 
 const animate = () => {
   c.clearRect(0,0, 900, 600);
 
+  copter.draw(c)
+
   // circle
+
   c.beginPath();
   c.fillStyle="red";
-  c.fillRect(400 + i, 200 , 20, 50);
+  c.fillRect(900 - i, 200 , 20, 50);
   c.stroke();
   i = i + 1;
 
-  requestAnimationFrame(animate);
+  // requestAnimationFrame(animate);
 };
 
-// animate();
+animate();
 
-
-let copter = new Helicopter(200, 200);
-copter.draw(c)
+c.strokeStyle="blue";
+c.strokeRect(150, 150, 103, 50)
