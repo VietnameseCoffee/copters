@@ -208,6 +208,7 @@ class CoptersGame {
     this.brick = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](500, 250, 3);
 
     this.animate = this.animate.bind(this);
+    this.lift = this.lift.bind(this);
   }
 
   play() {
@@ -216,11 +217,8 @@ class CoptersGame {
 
   animate() {
     this.c.clearRect(0,0, 1000, 640);
-
     this.copter.move(this.c);
     this.brick.move(this.c);
-
-
 
     if (!this.copter.didCollide(this.brick)) {
       requestAnimationFrame(this.animate);
@@ -228,14 +226,26 @@ class CoptersGame {
       // boombooms
       // game over show score
     }
-
   }
 
+  lift() {
+    this.copter.lift();
+  }
 }
 
-let g = new CoptersGame(c);
 
+
+
+let g = new CoptersGame(c);
 g.play();
+
+canvas.addEventListener('click', () => g.lift())
+canvas.addEventListener('mousedown',() => {
+  setInterval(() => console.log("hi"), 50)
+})
+// canvas.addEventListener('mouseup',() => {
+//   setInterval(() => console.log("hi"), 50)
+// })
 
 
 /***/ }),
@@ -294,9 +304,13 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   move(c) {
     this.v = this.v + this.g;
-    this.y = this.y + 0.8;
+    this.y = this.y + this.v;
 
     this.draw(c);
+  }
+
+  lift() {
+    this.v = this.v + 2;
   }
 }
 
