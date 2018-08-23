@@ -196,8 +196,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const canvas = document.getElementById("canvas");
-canvas.width = 1000;
-canvas.height = 640;
+canvas.width = 900;
+canvas.height = 600;
 const c = canvas.getContext('2d');
 
 
@@ -209,6 +209,7 @@ class CoptersGame {
     this.wall = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 630, 0, 1000, 10);
     this.wall2 = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 0, 0, 1000, 10);
     this.bricks = init_bricks();
+    this.score = 0;
 
 
     this.alive = this.alive.bind(this);
@@ -223,7 +224,10 @@ class CoptersGame {
   animate() {
     let currentBrick = this.bricks[0];
     this.c.clearRect(0,0, 1000, 640);
+
+
     this.copter.move(this.c);
+
     if (currentBrick.x < -5){
       this.bricks.shift();
 
@@ -234,9 +238,8 @@ class CoptersGame {
       this.bricks[1].move(this.c);
     }
 
-
-    this.wall.draw(this.c)
-    this.wall2.draw(this.c)
+    this.wall.draw(this.c);
+    this.wall2.draw(this.c);
 
     if (this.alive()) {
       requestAnimationFrame(this.animate);
@@ -246,7 +249,15 @@ class CoptersGame {
     }
   }
 
+  render() {
+
+
+  }
+
+
   alive() {
+    this.score = this.score + 1;
+    console.log(this.score);
     return (
       this.copter.safe(this.bricks[0]) &&
       this.copter.safe(this.bricks[1]) &&
@@ -283,6 +294,7 @@ const init_bricks = () => {
 
 
 // starting game code;
+
 
 let g = new CoptersGame(c);
 g.play();
