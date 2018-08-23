@@ -10,11 +10,14 @@ const c = canvas.getContext('2d');
 class CoptersGame {
 
   constructor(c) {
-    this.copter = new Helicopter(150, 100, 0);
     this.c = c;
+    this.copter = new Helicopter(150, 100, 0);
     this.brick = new Brick(500, 250, 3, 30, 70);
     this.wall = new Brick(0, 630, 0, 1000, 10);
-    this.obstacles = []
+    this.obstacles = this.make_obstacles();
+    console.log(this.obstacles);
+
+
 
     this.animate = this.animate.bind(this);
     this.lift = this.lift.bind(this);
@@ -27,9 +30,9 @@ class CoptersGame {
   animate() {
     this.c.clearRect(0,0, 1000, 640);
     this.copter.move(this.c);
-    this.brick.move(this.c);
+    this.obstacles[0].move(this.c);
+
     this.wall.draw(this.c)
-    console.log(this.copter.safe(this.brick))
     if ((this.copter.safe(this.brick) && this.copter.safe(this.wall))) {
       requestAnimationFrame(this.animate);
     } else {
@@ -44,6 +47,18 @@ class CoptersGame {
 
   unlift() {
     this.copter.unlift();
+  }
+
+  make_obstacles() {
+    const obstacles = [];
+    let i;
+    for (i = 0; i < 5; i++) {
+      (function() {
+        let randY = (Math.random() * 640)
+        obstacles.push(new Brick(1050, randY, 3, 30, 70))
+      })();
+    }
+    return obstacles;
   }
 }
 

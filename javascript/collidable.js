@@ -31,7 +31,6 @@ class Collidable {
     const objBottom = obj.y + obj.height;
     //
     if (thisFront > objBack && thisBack < objFront) {
-      console.log(thisBottom > objTop && thisTop < objBottom)
       return (!(thisBottom > objTop && thisTop < objBottom))
     }
     return (true)
