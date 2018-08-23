@@ -87,7 +87,7 @@ class CoptersGame {
 const make_new_brick = () => {
   let randY = (Math.random() * 580);
   let randX = ((Math.random() * 400) + 1000);
-  return (new Brick(randX, randY, 7, 45, 90))
+  return (new Brick(randX, randY, 7, 50, 90))
 };
 
 const init_bricks = () => {
@@ -107,19 +107,23 @@ const init_bricks = () => {
 
 let g = new CoptersGame(c);
 let sound = new Audio('./helicopter.wav');
-sound.play();
 
-g.play();
+
+const play = () => {
+  g.play();
+
+  canvas.addEventListener('mousedown',() => {
+    clearInterval(engine)
+    engine = setInterval(() => g.lift(), 50)
+  })
+  canvas.addEventListener('mouseup',() => {
+    clearInterval(engine);
+    engine = setInterval(() => g.unlift(), 50)
+  })
+
+  canvas.removeEventListener('click', play)
+};
 
 let engine = null;
 
-canvas.addEventListener('mousedown',() => {
-  clearInterval(engine)
-  engine = setInterval(() => g.lift(), 50)
-})
-canvas.addEventListener('mouseup',() => {
-  clearInterval(engine);
-  engine = setInterval(() => g.unlift(), 50)
-})
-
-}
+canvas.addEventListener('click', play);}
