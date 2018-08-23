@@ -13,7 +13,8 @@ class Brick extends Collidable {
 
   draw(c) {
     c.beginPath();
-    c.strokeRect((this.x),(this.y), this.width, this.height);
+    c.fillStyle="red";
+    c.fillRect((this.x),(this.y), this.width, this.height);
     c.stroke();
   }
 

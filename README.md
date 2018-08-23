@@ -2,13 +2,13 @@
 
 ## Background Overview
 
-The Copters is a little javascript game similar to the infamous Helicopter Game where the player flies a helicopter through the air trying to avoid walls and obstacles. This is a simple 
+The Copters is a little javascript game similar to the infamous Helicopter Game where the player flies a helicopter through the air trying to avoid walls and obstacles. This is a simple
 
 ## Functions MVPs
 
-- [ ] Render the helicopter and obstacles
-- [ ] Create gravity and lift for the helicopter
-- [ ] Add audio files for sounds 
+- [x] Render the helicopter and obstacles
+- [x] Create gravity and lift for the helicopter
+- [ ] Add audio files for sounds
 - [ ] Implement a score system
 - [ ] Bonus: Node back for high score keeping
 
@@ -17,7 +17,7 @@ The Copters is a little javascript game similar to the infamous Helicopter Game 
 This app will implement the following
 * Vanilla Javascript for handling key events
 * Canvas to render the app and its apposite animations
-* Web Audio API to generate sounds 
+* Web Audio API to generate sounds
 * Webpack to manage dependencies
 
 Timeline
