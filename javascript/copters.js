@@ -3,7 +3,7 @@ import Brick from './brick';
 
 const canvas = document.getElementById("canvas");
 canvas.width = 900;
-canvas.height = 600;
+canvas.height = 580;
 const c = canvas.getContext('2d');
 
 
@@ -11,9 +11,9 @@ class CoptersGame {
 
   constructor(c) {
     this.c = c;
-    this.copter = new Helicopter(150, 100, 0);
-    this.wall = new Brick(0, 630, 0, 1000, 10);
-    this.wall2 = new Brick(0, 0, 0, 1000, 10);
+    this.copter = new Helicopter(250, 100, 0);
+    this.wall = new Brick(0, 560, 0, 1000, 20);
+    this.wall2 = new Brick(0, 0, 0, 1000, 20);
     this.bricks = init_bricks();
     this.score = 0;
 
@@ -31,6 +31,8 @@ class CoptersGame {
     let currentBrick = this.bricks[0];
     this.c.clearRect(0,0, 1000, 640);
 
+    c.font="28px robot";
+    c.fillText(`Score: ${this.score}`, 50, 50)
 
     this.copter.move(this.c);
 
@@ -67,6 +69,7 @@ class CoptersGame {
     return (
       this.copter.safe(this.bricks[0]) &&
       this.copter.safe(this.bricks[1]) &&
+      this.copter.safe(this.wall2) &&
       this.copter.safe(this.wall))
   }
 
@@ -82,9 +85,9 @@ class CoptersGame {
 // Global functions
 
 const make_new_brick = () => {
-  let randY = (Math.random() * 640);
+  let randY = (Math.random() * 580);
   let randX = ((Math.random() * 400) + 1000);
-  return (new Brick(randX, randY, 5, 30, 70))
+  return (new Brick(randX, randY, 7, 45, 90))
 };
 
 const init_bricks = () => {
@@ -99,10 +102,13 @@ const init_bricks = () => {
 
 
 
-// starting game code;
-
+// starting game code, block scoped;
+{
 
 let g = new CoptersGame(c);
+let sound = new Audio('./helicopter.wav');
+sound.play();
+
 g.play();
 
 let engine = null;
@@ -115,3 +121,5 @@ canvas.addEventListener('mouseup',() => {
   clearInterval(engine);
   engine = setInterval(() => g.unlift(), 50)
 })
+
+}

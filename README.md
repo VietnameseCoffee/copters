@@ -9,7 +9,7 @@ The Copters is a little javascript game similar to the infamous Helicopter Game 
 - [x] Render the helicopter and obstacles
 - [x] Create gravity and lift for the helicopter
 - [ ] Add audio files for sounds
-- [ ] Implement a score system
+- [X] Implement a score system
 - [ ] Bonus: Node back for high score keeping
 
 ## Technologies

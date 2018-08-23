@@ -111,8 +111,13 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   draw(c) {
     c.beginPath();
-    c.fillStyle="red";
+    c.fillStyle="#E70F05";
     c.fillRect((this.x),(this.y), this.width, this.height);
+    c.stroke();
+
+    c.beginPath();
+    c.strokeStyle="#5D1101";
+    c.strokeRect((this.x),(this.y), this.width, this.height);
     c.stroke();
   }
 
@@ -197,7 +202,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const canvas = document.getElementById("canvas");
 canvas.width = 900;
-canvas.height = 600;
+canvas.height = 580;
 const c = canvas.getContext('2d');
 
 
@@ -205,9 +210,9 @@ class CoptersGame {
 
   constructor(c) {
     this.c = c;
-    this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](150, 100, 0);
-    this.wall = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 630, 0, 1000, 10);
-    this.wall2 = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 0, 0, 1000, 10);
+    this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
+    this.wall = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 560, 0, 1000, 20);
+    this.wall2 = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 0, 0, 1000, 20);
     this.bricks = init_bricks();
     this.score = 0;
 
@@ -225,6 +230,8 @@ class CoptersGame {
     let currentBrick = this.bricks[0];
     this.c.clearRect(0,0, 1000, 640);
 
+    c.font="28px robot";
+    c.fillText(`Score: ${this.score}`, 50, 50)
 
     this.copter.move(this.c);
 
@@ -261,6 +268,7 @@ class CoptersGame {
     return (
       this.copter.safe(this.bricks[0]) &&
       this.copter.safe(this.bricks[1]) &&
+      this.copter.safe(this.wall2) &&
       this.copter.safe(this.wall))
   }
 
@@ -276,9 +284,9 @@ class CoptersGame {
 // Global functions
 
 const make_new_brick = () => {
-  let randY = (Math.random() * 640);
+  let randY = (Math.random() * 580);
   let randX = ((Math.random() * 400) + 1000);
-  return (new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](randX, randY, 5, 30, 70))
+  return (new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](randX, randY, 7, 45, 90))
 };
 
 const init_bricks = () => {
@@ -293,10 +301,13 @@ const init_bricks = () => {
 
 
 
-// starting game code;
-
+// starting game code, block scoped;
+{
 
 let g = new CoptersGame(c);
+let sound = new Audio('./helicopter.wav');
+sound.play();
+
 g.play();
 
 let engine = null;
@@ -309,6 +320,8 @@ canvas.addEventListener('mouseup',() => {
   clearInterval(engine);
   engine = setInterval(() => g.unlift(), 50)
 })
+
+}
 
 
 /***/ }),
@@ -332,7 +345,7 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(x, y, v)
     this.width = 90;
     this.height = 47;
-    this.g = 0.1;
+    this.g = 0.18;
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
@@ -392,13 +405,13 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   lift() {
     if (this.v > 1) {
-      this.v = this.v - 0.6;
+      this.v = this.v - 1.2;
     }
-    this.g = -0.18;
+    this.g = -0.22;
   }
 
   unlift() {
-    this.g = 0.23;
+    this.g = 0.42;
   }
 }
 
