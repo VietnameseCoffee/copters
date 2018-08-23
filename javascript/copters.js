@@ -12,10 +12,8 @@ class CoptersGame {
   constructor(c) {
     this.c = c;
     this.copter = new Helicopter(150, 100, 0);
-    this.brick = new Brick(500, 250, 3, 30, 70);
     this.wall = new Brick(0, 630, 0, 1000, 10);
-    this.obstacles = this.make_obstacles();
-    console.log(this.obstacles);
+    this.bricks = this.make_bricks();
 
 
 
@@ -28,12 +26,23 @@ class CoptersGame {
   }
 
   animate() {
+    let currentBrick = this.bricks[0];
     this.c.clearRect(0,0, 1000, 640);
     this.copter.move(this.c);
-    this.obstacles[0].move(this.c);
+    console.log(currentBrick.x < 5)
+    if (currentBrick.x < 5){
+      this.bricks.shift();
+
+      console.log(this.bricks)
+      console.log(this.bricks)
+      this.bricks.push(x)
+    } else {
+      currentBrick.move(this.c);
+    }
+
 
     this.wall.draw(this.c)
-    if ((this.copter.safe(this.brick) && this.copter.safe(this.wall))) {
+    if ((this.copter.safe(currentBrick) && this.copter.safe(this.wall))) {
       requestAnimationFrame(this.animate);
     } else {
       // boombooms
@@ -49,17 +58,19 @@ class CoptersGame {
     this.copter.unlift();
   }
 
-  make_obstacles() {
-    const obstacles = [];
+  init_bricks() {
+    const bricks = [];
     let i;
     for (i = 0; i < 5; i++) {
       (function() {
         let randY = (Math.random() * 640)
-        obstacles.push(new Brick(1050, randY, 3, 30, 70))
+        bricks.push(new Brick(1050, randY, 5, 30, 70))
       })();
     }
-    return obstacles;
+    return bricks;
   }
+
+  make_new_brick
 }
 
 let engine = null;
