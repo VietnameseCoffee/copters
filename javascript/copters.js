@@ -57,11 +57,6 @@ class CoptersGame {
     }
   }
 
-  render() {
-
-
-  }
-
 
   alive() {
     this.score = this.score + 1;
@@ -106,8 +101,6 @@ const init_bricks = () => {
 {
 
 let g = new CoptersGame(c);
-let sound = new Audio('./helicopter.wav');
-
 
 const play = () => {
   g.play();
@@ -121,9 +114,20 @@ const play = () => {
     engine = setInterval(() => g.unlift(), 50)
   })
 
+  audio.play();
   canvas.removeEventListener('click', play)
 };
 
 let engine = null;
+
+const audio = document.getElementById('audio');
+
+
+c.font="60px robot";
+c.fillStyle="white"
+c.fillText(`Copters`, 350, 150)
+c.font="40px robot";
+c.fontStyle="white"
+c.fillText(`Click to start`, 350, 300)
 
 canvas.addEventListener('click', play);}

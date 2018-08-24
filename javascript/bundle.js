@@ -256,11 +256,6 @@ class CoptersGame {
     }
   }
 
-  render() {
-
-
-  }
-
 
   alive() {
     this.score = this.score + 1;
@@ -305,8 +300,6 @@ const init_bricks = () => {
 {
 
 let g = new CoptersGame(c);
-let sound = new Audio('./helicopter.wav');
-
 
 const play = () => {
   g.play();
@@ -320,10 +313,21 @@ const play = () => {
     engine = setInterval(() => g.unlift(), 50)
   })
 
+  audio.play();
   canvas.removeEventListener('click', play)
 };
 
 let engine = null;
+
+const audio = document.getElementById('audio');
+
+
+c.font="60px robot";
+c.fillStyle="white"
+c.fillText(`Copters`, 350, 150)
+c.font="40px robot";
+c.fontStyle="white"
+c.fillText(`Click to start`, 350, 300)
 
 canvas.addEventListener('click', play);}
 
@@ -349,7 +353,7 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(x, y, v)
     this.width = 90;
     this.height = 47;
-    this.g = 0.18;
+    this.g = 0.33;
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
@@ -409,13 +413,16 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   lift() {
     if (this.v > 1) {
-      this.v = this.v - 1.2;
+      this.v = this.v - 2.0;
     }
-    this.g = -0.22;
+    this.g = -0.32;
   }
 
   unlift() {
-    this.g = 0.42;
+    if (this.v > -1) {
+      this.v = this.v + 1.1;
+    }
+    this.g = 0.47;
   }
 }
 
