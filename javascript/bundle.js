@@ -109,6 +109,22 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     this.move = this.move.bind(this);
   }
 
+  static make_brick () {
+    let randY = (Math.random() * 580);
+    let randX = ((Math.random() * 400) + 1000);
+    return (new Brick(randX, randY, 7, 50, 90))
+  }
+
+  static init_bricks () {
+    const bricks = [];
+    let i;
+    for (i = 0; i < 3; i++) {
+      bricks.push(Brick.make_brick());
+    }
+    console.log(bricks)
+    return bricks;
+  }
+
   draw(c) {
     c.beginPath();
     c.fillStyle="#E70F05";
@@ -213,7 +229,7 @@ class CoptersGame {
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
     this.wall = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 560, 0, 1000, 20);
     this.wall2 = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 0, 0, 1000, 20);
-    this.bricks = init_bricks();
+    this.bricks = _brick__WEBPACK_IMPORTED_MODULE_1__["default"].init_bricks();
     this.score = 0;
 
 
@@ -235,11 +251,10 @@ class CoptersGame {
 
     this.copter.move(this.c);
 
-    if (currentBrick.x < -5){
+    if (currentBrick.x < -10){
       this.bricks.shift();
 
-      console.log(this.bricks)
-      this.bricks.push(make_new_brick())
+      this.bricks.push(_brick__WEBPACK_IMPORTED_MODULE_1__["default"].make_brick())
     } else {
       currentBrick.move(this.c);
       this.bricks[1].move(this.c);
@@ -251,11 +266,11 @@ class CoptersGame {
     if (this.alive()) {
       requestAnimationFrame(this.animate);
     } else {
-      // boombooms
-      // game over show score
+      c.font="60px robot";
+      c.fillStyle="white";
+      c.fillText(`Game Over`, 310, 150)
     }
   }
-
 
   alive() {
     this.score = this.score + 1;
@@ -274,31 +289,21 @@ class CoptersGame {
   unlift() {
     this.copter.unlift();
   }
-}
 
-// Global functions
-
-const make_new_brick = () => {
-  let randY = (Math.random() * 580);
-  let randX = ((Math.random() * 400) + 1000);
-  return (new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](randX, randY, 7, 50, 90))
-};
-
-const init_bricks = () => {
-  const bricks = [];
-  let i;
-  for (i = 0; i < 5; i++) {
-    bricks.push(make_new_brick());
+  paintIntro (){
+    this.c.font="60px robot";
+    this.c.fillStyle="white"
+    this.c.fillText(`Copters`, 350, 150)
+    this.c.font="40px robot";
+    this.c.fontStyle="white"
+    this.c.fillText(`Click to start`, 350, 300)
   }
-  console.log(bricks)
-  return bricks;
 }
-
-
 
 // starting game code, block scoped;
 
 let g = new CoptersGame(c);
+g.paintIntro();
 
 
 const play = () => {
