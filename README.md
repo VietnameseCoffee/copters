@@ -25,6 +25,10 @@ This app will implement the following
 * Canvas to render the app and its apposite animations
 * Webpack to manage dependencies
 
+## Design
+
+The app will contain a single HTML canvas element where the rendering of the game occurs.
+
 Timeline
 
 Day 2: render the board helicopter and obstacles and walls, Understand basic movement and gravity
