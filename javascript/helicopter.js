@@ -67,16 +67,16 @@ class Helicopter extends Collidable {
 
   lift() {
     if (this.v > 1) {
-      this.v = this.v - 2.0;
+      this.v = this.v - 2.8;
     }
-    this.g = -0.32;
+    this.g = -0.52;
   }
 
   unlift() {
-    if (this.v > -1) {
-      this.v = this.v + 1.1;
+    if (this.v > -1.0) {
+      this.v = this.v + 2.9;
     }
-    this.g = 0.47;
+    this.g = 0.67;
   }
 }
 

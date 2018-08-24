@@ -2,7 +2,11 @@
 
 ## Background Overview
 
-The Copters is a little javascript game similar to the infamous Helicopter Game where the player flies a helicopter through the air trying to avoid walls and obstacles. This is a simple
+The Copters is a little javascript game similar to the infamous Helicopter Game where the player flies a helicopter through the air trying to avoid walls and obstacles.
+
+This is an infinite scroller where the objective is to survive as long as possible, where the score is based on the duration of survival.
+
+Users fly through the cave turning on the engine on and off constantly to fight the force of gravity to the ground while not trying to hit the ceiling. Everytime the engine is turned on
 
 ## Functions MVPs
 
