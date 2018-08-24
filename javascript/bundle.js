@@ -297,28 +297,26 @@ const init_bricks = () => {
 
 
 // starting game code, block scoped;
-{
 
 let g = new CoptersGame(c);
 
+
 const play = () => {
   g.play();
-
   canvas.addEventListener('mousedown',() => {
-    clearInterval(engineOn)
-    engine = g.lift()
+
+    audio.play();
+    g.lift()
   })
   canvas.addEventListener('mouseup',() => {
-    clearInterval(engineOn);
-    engine = g.unlift()
+    audio.pause();
+    audio.currentTime = 1 ;
+    g.unlift()
   })
-
-  audio.play();
   canvas.removeEventListener('click', play)
 };
 
-let engineOn = null;
-
+let engine= null;
 const audio = document.getElementById('audio');
 
 
@@ -329,7 +327,7 @@ c.font="40px robot";
 c.fontStyle="white"
 c.fillText(`Click to start`, 350, 300)
 
-canvas.addEventListener('click', play);}
+canvas.addEventListener('click', play);
 
 
 /***/ }),
