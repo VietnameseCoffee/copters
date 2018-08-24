@@ -305,19 +305,19 @@ const play = () => {
   g.play();
 
   canvas.addEventListener('mousedown',() => {
-    clearInterval(engine)
-    engine = setInterval(() => g.lift(), 50)
+    clearInterval(engineOn)
+    engine = g.lift()
   })
   canvas.addEventListener('mouseup',() => {
-    clearInterval(engine);
-    engine = setInterval(() => g.unlift(), 50)
+    clearInterval(engineOn);
+    engine = g.unlift()
   })
 
   audio.play();
   canvas.removeEventListener('click', play)
 };
 
-let engine = null;
+let engineOn = null;
 
 const audio = document.getElementById('audio');
 
