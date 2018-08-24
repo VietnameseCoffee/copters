@@ -34,11 +34,9 @@ class CoptersGame {
     if (currentBrick.x < -10){
       this.bricks.shift();
       this.bricks.push(Brick.make_brick())
-    } else if (currentBrick.x < 500 && this.bricks.length < 4) {
-      this.bricks.push(Brick.make_brick())
     }
-    this.move_all();
 
+    this.move_all();
 
     this.wall.draw(this.c);
     this.wall2.draw(this.c);
@@ -59,12 +57,10 @@ class CoptersGame {
       if (!this.copter.safe(this.bricks[i])) {
         return false
       }
-      return (
-        this.copter.safe(this.wall2) &&
-        this.copter.safe(this.wall)
-      )
     }
-
+    return (
+      this.copter.safe(this.wall2) &&
+      this.copter.safe(this.wall))
   }
 
   move_all() {
