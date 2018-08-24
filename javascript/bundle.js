@@ -111,14 +111,14 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   static make_brick () {
     let randY = (Math.random() * 580);
-    let randX = ((Math.random() * 400) + 1000);
-    return (new Brick(randX, randY, 7, 50, 90))
+    let X = (1000);
+    return (new Brick(X, randY, 7, 50, 90))
   }
 
   static init_bricks () {
     const bricks = [];
     let i;
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 2; i++) {
       bricks.push(Brick.make_brick());
     }
     console.log(bricks)
@@ -212,7 +212,10 @@ class Collidable {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helicopter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helicopter */ "./javascript/helicopter.js");
-/* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
+/* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./heli_sprite */ "./javascript/heli_sprite.js");
+/* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_heli_sprite__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
+
 
 
 
@@ -221,9 +224,9 @@ class CoptersGame {
   constructor(c) {
     this.c = c;
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
-    this.wall = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 560, 0, 1000, 20);
-    this.wall2 = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 0, 0, 1000, 20);
-    this.bricks = _brick__WEBPACK_IMPORTED_MODULE_1__["default"].init_bricks();
+    this.wall = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, 560, 0, 1000, 20);
+    this.wall2 = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, 0, 0, 1000, 20);
+    this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
     this.score = 0;
 
 
@@ -247,11 +250,12 @@ class CoptersGame {
 
     if (currentBrick.x < -10){
       this.bricks.shift();
-
-      this.bricks.push(_brick__WEBPACK_IMPORTED_MODULE_1__["default"].make_brick())
-    } else {
-      this.move_all();
+      this.bricks.push(_brick__WEBPACK_IMPORTED_MODULE_2__["default"].make_brick())
+    } else if (currentBrick.x < 500 && this.bricks.length < 4) {
+      this.bricks.push(_brick__WEBPACK_IMPORTED_MODULE_2__["default"].make_brick())
     }
+    this.move_all();
+
 
     this.wall.draw(this.c);
     this.wall2.draw(this.c);
@@ -271,8 +275,12 @@ class CoptersGame {
       if (!this.copter.safe(this.bricks[i])) {
         return false
       }
-      return true
+      return (
+        this.copter.safe(this.wall2) &&
+        this.copter.safe(this.wall)
+      )
     }
+
   }
 
   move_all() {
@@ -332,6 +340,17 @@ const play = () => {
 
 const audio = document.getElementById('audio');
 canvas.addEventListener('click', play);
+
+
+/***/ }),
+
+/***/ "./javascript/heli_sprite.js":
+/*!***********************************!*\
+  !*** ./javascript/heli_sprite.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
 
 
 /***/ }),

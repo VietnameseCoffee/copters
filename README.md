@@ -2,11 +2,13 @@
 
 ## Background Overview
 
-The Copters is a little javascript game similar to the infamous Helicopter Game where the player flies a helicopter through the air trying to avoid walls and obstacles.
+The Copters is a little javascript game similar to the infamous survival game The Helicopter Game.
 
 This is an infinite scroller where the objective is to survive as long as possible, where the score is based on the duration of survival.
 
-Users fly through the cave turning on the engine on and off constantly to fight the force of gravity to the ground while not trying to hit the ceiling. Everytime the engine is turned on
+Users fly through the cave turning on the engine on and off constantly to fight the force of gravity to the ground while not trying to hit the ceiling. An audio file of an engine will play every time the player clicks to lift up the copter.
+
+Collision logic will be based on whether or not the helicopter hit box overlaps with existing obstacles on the map.
 
 ## Functions MVPs
 
@@ -21,12 +23,11 @@ Users fly through the cave turning on the engine on and off constantly to fight 
 This app will implement the following
 * Vanilla Javascript for handling key events
 * Canvas to render the app and its apposite animations
-* Web Audio API to generate sounds
 * Webpack to manage dependencies
 
 Timeline
 
-DAy 2: render the board helicopter and obstacles and walls, Understand basic movement and gravity
+Day 2: render the board helicopter and obstacles and walls, Understand basic movement and gravity
 
 Day 3: Clean up velocities of obstacles and acceleration for the helicopter, understand how to create audio on events
 
