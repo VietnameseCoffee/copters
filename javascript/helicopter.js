@@ -3,11 +3,12 @@ import Collidable from './collidable';
 
 class Helicopter extends Collidable {
 
-  constructor(x, y, v) {
+  constructor(x, y, v, img) {
     super(x, y, v)
     this.width = 90;
     this.height = 47;
     this.g = 0.33;
+    this.img = img
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);

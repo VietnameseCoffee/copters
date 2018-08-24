@@ -43,6 +43,7 @@ class CoptersGame {
     this.wall.draw(this.c);
     this.wall2.draw(this.c);
 
+
     if (this.alive()) {
       requestAnimationFrame(this.animate);
     } else {
@@ -70,8 +71,6 @@ class CoptersGame {
     for (let i = 0; i <this.bricks.length; i++) {
       this.bricks[i].move(this.c)
     }
-    // this.bricks[0].move(this.c);
-    // this.bricks[1].move(this.c);
   }
 
   lift() {

@@ -13,14 +13,14 @@ class Brick extends Collidable {
 
   static make_brick () {
     let randY = (Math.random() * 580);
-    let X = (1000);
-    return (new Brick(X, randY, 7, 50, 90))
+    let randX = ((Math.random() * 600) + 1000);
+    return (new Brick(randX, randY, 7, 50, 90))
   }
 
   static init_bricks () {
     const bricks = [];
     let i;
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 3; i++) {
       bricks.push(Brick.make_brick());
     }
     console.log(bricks)
