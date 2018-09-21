@@ -78,12 +78,21 @@ class CoptersGame {
   }
 
   paintIntro (){
-    this.c.font="60px robot";
+    this.c.font="80px robot";
     this.c.fillStyle="white"
-    this.c.fillText(`Copters`, 350, 150)
-    this.c.font="40px robot";
+    this.c.fillText(`Copters`, 340, 150)
+    this.c.font="32px robot";
     this.c.fontStyle="white"
-    this.c.fillText(`Click to start`, 350, 300)
+    this.c.fillText(`Instructions:`, 250, 280)
+    this.c.font="28px robot";
+    this.c.fontStyle="white"
+    this.c.fillText(`Navigate throught he cave avoiding walls`, 250, 320)
+    this.c.font="28px robot";
+    this.c.fontStyle="white"
+    this.c.fillText(`and bricks. Left click to lift the helicopter`, 250, 350)
+    this.c.font="28px robot";
+    this.c.fontStyle="white"
+    this.c.fillText(`Unclick to let the helicopter fall`, 250, 380)
   }
 
   paintGG() {
