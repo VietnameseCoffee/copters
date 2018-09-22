@@ -1,5 +1,18 @@
 body {
-  background-color: #f9f9f9;
+  background-color: black;
+}
+
+h1 {
+  text-align: center;
+  font: 48px arial, sans-serif;
+  font-weight: 400;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.wall {
+  background-image: url("../imports/walls.jpeg");
+  filter: brightness(50%);
 }
 
 #canvas-container {

@@ -8,10 +8,9 @@ class CoptersGame {
     this.c = c;
     this.copter = new Helicopter(250, 100, 0);
     this.wall = new Brick(0, 560, 0, 1000, 20);
-    this.wall2 = new Brick(0, 0, 0, 1000, 20);
+    this.ceiling = new Brick(0, 0, 0, 1000, 20);
     this.bricks = Brick.init_bricks();
     this.score = 0;
-
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
@@ -24,9 +23,9 @@ class CoptersGame {
 
   animate() {
     let currentBrick = this.bricks[0];
-    this.c.clearRect(0,0, 1000, 640);
+    this.c.clearRect(0,0, 1200, 640);
 
-    c.font="28px robot";
+    c.font="28px arial";
     c.fillText(`Score: ${this.score}`, 50, 50)
 
     this.copter.move(this.c);
@@ -39,7 +38,7 @@ class CoptersGame {
     this.move_all();
 
     this.wall.draw(this.c);
-    this.wall2.draw(this.c);
+    this.ceiling.draw(this.c);
 
 
     if (this.alive()) {
@@ -59,7 +58,7 @@ class CoptersGame {
       }
     }
     return (
-      this.copter.safe(this.wall2) &&
+      this.copter.safe(this.ceiling) &&
       this.copter.safe(this.wall))
   }
 
@@ -78,21 +77,15 @@ class CoptersGame {
   }
 
   paintIntro (){
-    this.c.font="80px robot";
+    this.c.font="40px arial";
     this.c.fillStyle="white"
-    this.c.fillText(`Copters`, 340, 150)
-    this.c.font="32px robot";
+    this.c.fillText(`Instructions`, 340, 180)
+    this.c.font="28px arial";
     this.c.fontStyle="white"
-    this.c.fillText(`Instructions:`, 250, 280)
-    this.c.font="28px robot";
+    this.c.fillText(`Click to start the game`, 250, 220)
+    this.c.font="28px arial";
     this.c.fontStyle="white"
-    this.c.fillText(`Navigate throught he cave avoiding walls`, 250, 320)
-    this.c.font="28px robot";
-    this.c.fontStyle="white"
-    this.c.fillText(`and bricks. Left click to lift the helicopter`, 250, 350)
-    this.c.font="28px robot";
-    this.c.fontStyle="white"
-    this.c.fillText(`Unclick to let the helicopter fall`, 250, 380)
+    this.c.fillText(`Click and hold on your mouse to lift the copter`, 200, 250)
   }
 
   paintGG() {
@@ -104,8 +97,8 @@ class CoptersGame {
 
 
 const canvas = document.getElementById("canvas");
-canvas.width = 900;
-canvas.height = 580;
+canvas.width = 1200;
+canvas.height = 630;
 const c = canvas.getContext('2d');
 
 let g = new CoptersGame(c);
