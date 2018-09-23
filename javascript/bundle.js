@@ -214,17 +214,64 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helicopter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helicopter */ "./javascript/helicopter.js");
 /* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./heli_sprite */ "./javascript/heli_sprite.js");
 /* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
+/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./game.js */ "./javascript/game.js");
 
 
 
 
-class CoptersGame {
+
+
+const canvas = document.getElementById("canvas");
+canvas.width = 1200;
+canvas.height = 616;
+const c = canvas.getContext('2d');
+
+let g = new _game_js__WEBPACK_IMPORTED_MODULE_3__["default"](c);
+g.paintIntro();
+
+const startGame = () => {
+  g.play();
+  canvas.addEventListener('mousedown',() => {
+    audio.play();
+    g.lift()
+  })
+  canvas.addEventListener('mouseup',() => {
+    audio.pause();
+    audio.currentTime = 0 ;
+    g.unlift()
+  })
+  canvas.removeEventListener('click', startGame)
+};
+
+const audio = document.getElementById('audio');
+canvas.addEventListener('click', startGame);
+
+
+/***/ }),
+
+/***/ "./javascript/game.js":
+/*!****************************!*\
+  !*** ./javascript/game.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helicopter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helicopter */ "./javascript/helicopter.js");
+/* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./heli_sprite */ "./javascript/heli_sprite.js");
+/* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
+
+
+
+
+class Game {
 
   constructor(c) {
     this.c = c;
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
-    this.wall = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, 560, 0, 1000, 20);
-    this.wall2 = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, 0, 0, 1000, 20);
+    this.floor = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, 616, 0, 1000, 20);
+    this.ceiling = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, -20, 0, 1000, 20);
     this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
     this.score = 0;
 
@@ -241,8 +288,8 @@ class CoptersGame {
     let currentBrick = this.bricks[0];
     this.c.clearRect(0,0, 1200, 640);
 
-    c.font="28px arial";
-    c.fillText(`Score: ${this.score}`, 50, 50)
+    this.c.font="28px arial";
+    this.c.fillText(`Score: ${this.score}`, 50, 50)
 
     this.copter.move(this.c);
 
@@ -253,8 +300,8 @@ class CoptersGame {
 
     this.move_all();
 
-    this.wall.draw(this.c);
-    this.wall2.draw(this.c);
+    this.floor.draw(this.c);
+    this.ceiling.draw(this.c);
 
 
     if (this.alive()) {
@@ -274,8 +321,8 @@ class CoptersGame {
       }
     }
     return (
-      this.copter.safe(this.wall2) &&
-      this.copter.safe(this.wall))
+      this.copter.safe(this.ceiling) &&
+      this.copter.safe(this.floor))
   }
 
   move_all() {
@@ -305,37 +352,18 @@ class CoptersGame {
   }
 
   paintGG() {
-    this.c.font="60px robot";
+    this.c.font="60px Arial";
     this.c.fillStyle="white";
-    this.c.fillText(`Game Over`, 310, 150)
+    this.c.fillText(`Game Over`, 440, 150)
+
+    canvas.addEventListener('click', () =>  {
+      const g = new Game(c)
+
+    })
   }
 }
 
-
-const canvas = document.getElementById("canvas");
-canvas.width = 1200;
-canvas.height = 630;
-const c = canvas.getContext('2d');
-
-let g = new CoptersGame(c);
-g.paintIntro();
-
-const play = () => {
-  g.play();
-  canvas.addEventListener('mousedown',() => {
-    audio.play();
-    g.lift()
-  })
-  canvas.addEventListener('mouseup',() => {
-    audio.pause();
-    audio.currentTime = 0 ;
-    g.unlift()
-  })
-  canvas.removeEventListener('click', play)
-};
-
-const audio = document.getElementById('audio');
-canvas.addEventListener('click', play);
+/* harmony default export */ __webpack_exports__["default"] = (Game);
 
 
 /***/ }),
