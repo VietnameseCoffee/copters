@@ -129,6 +129,7 @@ class Game {
 
     this.copter = new Helicopter(250, 100, 0);
     this.bricks = Brick.init_bricks();
+    this.stalactite = new Stalactite(1500, 0);
 
     canvas.removeEventListener('click', this.replay)
     this.play();

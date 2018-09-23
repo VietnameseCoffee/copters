@@ -1,6 +1,5 @@
 import Helicopter from './helicopter';
 import HeliSprite from './heli_sprite'
-import Brick from './brick';
 import Game from './game.js'
 
 
@@ -34,11 +33,18 @@ let nullAudio = {
   pause: () => {}
 }
 const toggle = document.getElementById('music-toggle')
+
 toggle.addEventListener('click', () => {
   if (audio === nullAudio) {
     audio = document.getElementById('audio');
+    toggle.classList.remove("fa-volume-off")
+    toggle.classList.add("fa-volume-up")
+
   } else {
     audio = nullAudio
+    toggle.classList.remove("fa-volume-up")
+    toggle.classList.add("fa-volume-off")
+
   }
 })
 

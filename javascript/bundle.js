@@ -236,9 +236,7 @@ class Collidable {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helicopter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helicopter */ "./javascript/helicopter.js");
 /* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./heli_sprite */ "./javascript/heli_sprite.js");
-/* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
-/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./game.js */ "./javascript/game.js");
-
+/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./game.js */ "./javascript/game.js");
 
 
 
@@ -248,7 +246,7 @@ const canvas = document.getElementById("canvas");
 canvas.width = 1200;
 canvas.height = 616;
 const c = canvas.getContext('2d');
-let game = new _game_js__WEBPACK_IMPORTED_MODULE_3__["default"](c, canvas);
+let game = new _game_js__WEBPACK_IMPORTED_MODULE_2__["default"](c, canvas);
 
 game.paintIntro();
 
@@ -274,11 +272,18 @@ let nullAudio = {
   pause: () => {}
 }
 const toggle = document.getElementById('music-toggle')
+
 toggle.addEventListener('click', () => {
   if (audio === nullAudio) {
     audio = document.getElementById('audio');
+    toggle.classList.remove("fa-volume-off")
+    toggle.classList.add("fa-volume-up")
+
   } else {
     audio = nullAudio
+    toggle.classList.remove("fa-volume-up")
+    toggle.classList.add("fa-volume-off")
+
   }
 })
 
@@ -431,6 +436,7 @@ class Game {
 
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
     this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
+    this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_3__["default"](1500, 0);
 
     canvas.removeEventListener('click', this.replay)
     this.play();
