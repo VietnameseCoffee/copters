@@ -110,22 +110,28 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   static make_brick () {
-    let randY = (Math.random() * 570);
-    let randX = (1200);
-    return (new Brick(randX, randY, 7, 50, 90))
+    let randY = (Math.random() * 580);
+    let randX = (1220);
+    return (new Brick(randX, randY, 5.5, 50, 80))
   }
 
   static init_bricks () {
     const bricks = [];
-    let i;
-    for (i = 0; i < 3; i++) { ((i) => {
+
+    for (let i = 0; i < 3; i++) {
+      ((i) => {
       const newBrick = Brick.make_brick()
       newBrick.x = newBrick.x + (i * 360)
       bricks.push(newBrick);
-    })(i)
 
+      if (i > 0) {
+        const extraBrick = Brick.make_brick();
+        extraBrick.x = (extraBrick.x + (i * 360) + 200);
+        bricks.push(extraBrick);
+      }
+      })(i)
     }
-    console.log(bricks)
+
     return bricks;
   }
 
@@ -142,8 +148,12 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   move(c) {
-    this.x = this.x - this.v;
+    this.displace();
     this.draw(c)
+  }
+
+  displace() {
+    this.x = this.x - this.v;
   }
 }
 
@@ -280,6 +290,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helicopter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helicopter */ "./javascript/helicopter.js");
 /* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./heli_sprite */ "./javascript/heli_sprite.js");
 /* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
+/* harmony import */ var _stalactite__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./stalactite */ "./javascript/stalactite.js");
+
 
 
 
@@ -295,6 +307,7 @@ class Game {
     this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
     this.score = 0;
     this.highScore = 0;
+    this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_3__["default"](800, 0, 5.5);
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
@@ -315,7 +328,7 @@ class Game {
 
     this.copter.move(this.c);
 
-    if (currentBrick.x < -10){
+    if (currentBrick.x < -25){
       this.bricks.shift();
       this.bricks.push(_brick__WEBPACK_IMPORTED_MODULE_2__["default"].make_brick())
     }
@@ -350,6 +363,8 @@ class Game {
     for (let i = 0; i <this.bricks.length; i++) {
       this.bricks[i].move(this.c)
     }
+
+    this.stalactite.move(this.c)
   }
 
   lift() {
@@ -532,6 +547,46 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Helicopter);
+
+
+/***/ }),
+
+/***/ "./javascript/stalactite.js":
+/*!**********************************!*\
+  !*** ./javascript/stalactite.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
+
+
+class Stalactite extends _brick__WEBPACK_IMPORTED_MODULE_0__["default"] {
+
+  constructor(x) {
+    super(x)
+
+    this.top = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x, 0, 5.5, 50, 69 )
+    this.mid1 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 6, 69, 5.5, 37.5, 45)
+    this.mid2 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 13, 114, 5.5, 25, 32 )
+    this.tip = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 19, 146, 5.5, 12, 40 )
+  }
+
+  move() {
+    this.top.displace()
+    this.mid1.displace()
+    this.mid2.displace()
+    this.tip.displace()
+  }
+
+  draw(c) {
+    
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Stalactite);
 
 
 /***/ })

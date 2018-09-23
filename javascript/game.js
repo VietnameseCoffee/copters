@@ -1,6 +1,7 @@
 import Helicopter from './helicopter';
 import HeliSprite from './heli_sprite'
 import Brick from './brick';
+import Stalactite from './stalactite';
 
 class Game {
 
@@ -13,6 +14,7 @@ class Game {
     this.bricks = Brick.init_bricks();
     this.score = 0;
     this.highScore = 0;
+    this.stalactite = new Stalactite(800, 0, 5.5);
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
@@ -33,7 +35,7 @@ class Game {
 
     this.copter.move(this.c);
 
-    if (currentBrick.x < -10){
+    if (currentBrick.x < -25){
       this.bricks.shift();
       this.bricks.push(Brick.make_brick())
     }
@@ -68,6 +70,8 @@ class Game {
     for (let i = 0; i <this.bricks.length; i++) {
       this.bricks[i].move(this.c)
     }
+
+    this.stalactite.move(this.c)
   }
 
   lift() {

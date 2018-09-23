@@ -12,22 +12,28 @@ class Brick extends Collidable {
   }
 
   static make_brick () {
-    let randY = (Math.random() * 570);
-    let randX = (1200);
-    return (new Brick(randX, randY, 7, 50, 90))
+    let randY = (Math.random() * 580);
+    let randX = (1220);
+    return (new Brick(randX, randY, 5.5, 50, 80))
   }
 
   static init_bricks () {
     const bricks = [];
-    let i;
-    for (i = 0; i < 3; i++) { ((i) => {
+
+    for (let i = 0; i < 3; i++) {
+      ((i) => {
       const newBrick = Brick.make_brick()
       newBrick.x = newBrick.x + (i * 360)
       bricks.push(newBrick);
-    })(i)
 
+      if (i > 0) {
+        const extraBrick = Brick.make_brick();
+        extraBrick.x = (extraBrick.x + (i * 360) + 200);
+        bricks.push(extraBrick);
+      }
+      })(i)
     }
-    console.log(bricks)
+
     return bricks;
   }
 
@@ -44,8 +50,12 @@ class Brick extends Collidable {
   }
 
   move(c) {
-    this.x = this.x - this.v;
+    this.displace();
     this.draw(c)
+  }
+
+  displace() {
+    this.x = this.x - this.v;
   }
 }
 
