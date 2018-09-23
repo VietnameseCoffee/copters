@@ -4,8 +4,9 @@ import Brick from './brick';
 
 class Game {
 
-  constructor(c) {
+  constructor(c, canvas) {
     this.c = c;
+    // this.canvas = canvas;
     this.copter = new Helicopter(250, 100, 0);
     this.floor = new Brick(0, 616, 0, 1000, 20);
     this.ceiling = new Brick(0, -20, 0, 1000, 20);
@@ -15,6 +16,7 @@ class Game {
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
     this.lift = this.lift.bind(this);
+    this.replay = this.replay.bind(this);
   }
 
   play() {
@@ -50,7 +52,6 @@ class Game {
 
   alive() {
     this.score = this.score + 1;
-    console.log(this.score);
 
     for (let i=0; i < this.bricks.length; i++) {
       if (!this.copter.safe(this.bricks[i])) {
@@ -93,10 +94,17 @@ class Game {
     this.c.fillStyle="white";
     this.c.fillText(`Game Over`, 440, 150)
 
-    canvas.addEventListener('click', () =>  {
-      const g = new Game(c)
+    canvas.addEventListener('click', this.replay)
+  }
 
-    })
+  replay() {
+    console.log(canvas)
+
+    this.copter = new Helicopter(250, 100, 0);
+    this.bricks = Brick.init_bricks();
+    this.score = 0;
+    canvas.removeEventListener('click', this.replay)
+    this.play();
   }
 }
 

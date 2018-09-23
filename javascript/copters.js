@@ -8,20 +8,22 @@ const canvas = document.getElementById("canvas");
 canvas.width = 1200;
 canvas.height = 616;
 const c = canvas.getContext('2d');
+let game = new Game(c, canvas);
 
-let g = new Game(c);
-g.paintIntro();
+game.paintIntro();
 
 const startGame = () => {
-  g.play();
+  game.play();
+
   canvas.addEventListener('mousedown',() => {
     audio.play();
-    g.lift()
+    game.lift()
   })
+
   canvas.addEventListener('mouseup',() => {
     audio.pause();
     audio.currentTime = 0 ;
-    g.unlift()
+    game.unlift()
   })
   canvas.removeEventListener('click', startGame)
 };

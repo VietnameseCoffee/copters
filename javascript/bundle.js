@@ -225,20 +225,22 @@ const canvas = document.getElementById("canvas");
 canvas.width = 1200;
 canvas.height = 616;
 const c = canvas.getContext('2d');
+let game = new _game_js__WEBPACK_IMPORTED_MODULE_3__["default"](c, canvas);
 
-let g = new _game_js__WEBPACK_IMPORTED_MODULE_3__["default"](c);
-g.paintIntro();
+game.paintIntro();
 
 const startGame = () => {
-  g.play();
+  game.play();
+
   canvas.addEventListener('mousedown',() => {
     audio.play();
-    g.lift()
+    game.lift()
   })
+
   canvas.addEventListener('mouseup',() => {
     audio.pause();
     audio.currentTime = 0 ;
-    g.unlift()
+    game.unlift()
   })
   canvas.removeEventListener('click', startGame)
 };
@@ -267,8 +269,9 @@ __webpack_require__.r(__webpack_exports__);
 
 class Game {
 
-  constructor(c) {
+  constructor(c, canvas) {
     this.c = c;
+    // this.canvas = canvas;
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
     this.floor = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, 616, 0, 1000, 20);
     this.ceiling = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, -20, 0, 1000, 20);
@@ -278,6 +281,7 @@ class Game {
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
     this.lift = this.lift.bind(this);
+    this.replay = this.replay.bind(this);
   }
 
   play() {
@@ -313,7 +317,6 @@ class Game {
 
   alive() {
     this.score = this.score + 1;
-    console.log(this.score);
 
     for (let i=0; i < this.bricks.length; i++) {
       if (!this.copter.safe(this.bricks[i])) {
@@ -356,10 +359,17 @@ class Game {
     this.c.fillStyle="white";
     this.c.fillText(`Game Over`, 440, 150)
 
-    canvas.addEventListener('click', () =>  {
-      const g = new Game(c)
+    canvas.addEventListener('click', this.replay)
+  }
 
-    })
+  replay() {
+    console.log(canvas)
+
+    this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
+    this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
+    this.score = 0;
+    canvas.removeEventListener('click', this.replay)
+    this.play();
   }
 }
 
