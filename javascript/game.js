@@ -94,15 +94,17 @@ class Game {
     this.c.fillStyle="white";
     this.c.fillText(`Game Over`, 440, 150)
 
-    canvas.addEventListener('click', this.replay)
+    setTimeout(() => {
+      canvas.addEventListener('click', this.replay)
+    }, 700)
   }
 
   replay() {
-    console.log(canvas)
+    this.score = 0;
 
     this.copter = new Helicopter(250, 100, 0);
     this.bricks = Brick.init_bricks();
-    this.score = 0;
+
     canvas.removeEventListener('click', this.replay)
     this.play();
   }

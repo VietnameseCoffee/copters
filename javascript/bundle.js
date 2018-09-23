@@ -359,15 +359,17 @@ class Game {
     this.c.fillStyle="white";
     this.c.fillText(`Game Over`, 440, 150)
 
-    canvas.addEventListener('click', this.replay)
+    setTimeout(() => {
+      canvas.addEventListener('click', this.replay)
+    }, 700)
   }
 
   replay() {
-    console.log(canvas)
+    this.score = 0;
 
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
     this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
-    this.score = 0;
+
     canvas.removeEventListener('click', this.replay)
     this.play();
   }
