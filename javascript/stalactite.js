@@ -4,12 +4,12 @@ class Stalactite extends Brick {
 
   constructor(x) {
     super(x)
-    this.v = 5.5;
+    this.v = 4.2;
 
-    this.top = new Brick(this.x, 0, 5.5, 50, 69 )
-    this.mid1 = new Brick(this.x + 6, 69, 5.5, 37.5, 60)
-    this.mid2 = new Brick(this.x + 13, 129, 5.5, 25, 55 )
-    this.tip = new Brick(this.x + 19, 184, 5.5, 12, 60 )
+    this.top = new Brick(this.x, 0, this.v, 50, 69 )
+    this.mid1 = new Brick(this.x + 6, 69, this.v, 37.5, 60)
+    this.mid2 = new Brick(this.x + 13, 129, this.v, 25, 55 )
+    this.tip = new Brick(this.x + 19, 184, this.v, 12, 60 )
 
     this.arr = [this.top, this.mid1, this.mid2, this.tip]
 
@@ -41,15 +41,16 @@ class Stalactite extends Brick {
     c.lineTo((this.x + 54), 0);
     c.fill();
     c.stroke();
+    c.lineWidth=2.2;
   }
 
   reset() {
     // console.log(this.top.x)
-    this.x = 3000 + (Math.random() * 2000);
-    this.top = new Brick(this.x, 0, 5.5, 50, 69 )
-    this.mid1 = new Brick(this.x + 6, 69, 5.5, 37.5, 60)
-    this.mid2 = new Brick(this.x + 13, 129, 5.5, 25, 55 )
-    this.tip = new Brick(this.x + 19, 184, 5.5, 12, 60 )
+    this.x = 1300 + (Math.random() * 3600);
+    this.top = new Brick(this.x, 0, this.v, 50, 69 )
+    this.mid1 = new Brick(this.x + 6, 69, this.v, 37.5, 60)
+    this.mid2 = new Brick(this.x + 13, 129, this.v, 25, 55 )
+    this.tip = new Brick(this.x + 19, 184, this.v, 12, 60 )
     this.arr = [this.top, this.mid1, this.mid2, this.tip]
   }
 

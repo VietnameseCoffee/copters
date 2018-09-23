@@ -14,7 +14,7 @@ class Game {
     this.bricks = Brick.init_bricks();
     this.score = 0;
     this.highScore = 0;
-    this.stalactite = new Stalactite(800, 0, 5.5);
+    this.stalactite = new Stalactite(1500, 0);
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);

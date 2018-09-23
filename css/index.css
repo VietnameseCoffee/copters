@@ -13,7 +13,7 @@ h1 {
 .wall {
   background-image: url("../imports/wall2.png");
   height: 17px;
-  filter: brightness(80%);
+  filter: brightness(180%);
 }
 
 #canvas-container {
@@ -24,7 +24,7 @@ h1 {
 #canvas {
   border: 1px solid black;
   background-image: url('../imports/lava_cave.jpg');
-  box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.25);
 }
 
 #music-toggle {

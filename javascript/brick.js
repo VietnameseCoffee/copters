@@ -14,7 +14,7 @@ class Brick extends Collidable {
   static make_brick () {
     let randY = (Math.random() * 580);
     let randX = (1220);
-    return (new Brick(randX, randY, 5.5, 50, 80))
+    return (new Brick(randX, randY, 5.5, 60, 70))
   }
 
   static init_bricks () {
@@ -23,12 +23,12 @@ class Brick extends Collidable {
     for (let i = 0; i < 3; i++) {
       ((i) => {
       const newBrick = Brick.make_brick()
-      newBrick.x = newBrick.x + (i * 360)
+      newBrick.x = newBrick.x + (i * 420)
       bricks.push(newBrick);
 
-      if (i > 0) {
+      if (i > 1) {
         const extraBrick = Brick.make_brick();
-        extraBrick.x = (extraBrick.x + (i * 360) + 200);
+        extraBrick.x = (extraBrick.x + (i * 400) + 190);
         bricks.push(extraBrick);
       }
       })(i)

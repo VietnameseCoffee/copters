@@ -112,7 +112,7 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   static make_brick () {
     let randY = (Math.random() * 580);
     let randX = (1220);
-    return (new Brick(randX, randY, 5.5, 50, 80))
+    return (new Brick(randX, randY, 5.5, 60, 70))
   }
 
   static init_bricks () {
@@ -121,12 +121,12 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     for (let i = 0; i < 3; i++) {
       ((i) => {
       const newBrick = Brick.make_brick()
-      newBrick.x = newBrick.x + (i * 360)
+      newBrick.x = newBrick.x + (i * 420)
       bricks.push(newBrick);
 
-      if (i > 0) {
+      if (i > 1) {
         const extraBrick = Brick.make_brick();
-        extraBrick.x = (extraBrick.x + (i * 360) + 200);
+        extraBrick.x = (extraBrick.x + (i * 400) + 190);
         bricks.push(extraBrick);
       }
       })(i)
@@ -316,7 +316,7 @@ class Game {
     this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
     this.score = 0;
     this.highScore = 0;
-    this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_3__["default"](800, 0, 5.5);
+    this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_3__["default"](1500, 0);
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
@@ -587,12 +587,12 @@ class Stalactite extends _brick__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   constructor(x) {
     super(x)
-    this.v = 5.5;
+    this.v = 4.2;
 
-    this.top = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x, 0, 5.5, 50, 69 )
-    this.mid1 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 6, 69, 5.5, 37.5, 60)
-    this.mid2 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 13, 129, 5.5, 25, 55 )
-    this.tip = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 19, 184, 5.5, 12, 60 )
+    this.top = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x, 0, this.v, 50, 69 )
+    this.mid1 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 6, 69, this.v, 37.5, 60)
+    this.mid2 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 13, 129, this.v, 25, 55 )
+    this.tip = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 19, 184, this.v, 12, 60 )
 
     this.arr = [this.top, this.mid1, this.mid2, this.tip]
 
@@ -624,15 +624,16 @@ class Stalactite extends _brick__WEBPACK_IMPORTED_MODULE_0__["default"] {
     c.lineTo((this.x + 54), 0);
     c.fill();
     c.stroke();
+    c.lineWidth=2.2;
   }
 
   reset() {
     // console.log(this.top.x)
-    this.x = 3000 + (Math.random() * 2000);
-    this.top = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x, 0, 5.5, 50, 69 )
-    this.mid1 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 6, 69, 5.5, 37.5, 60)
-    this.mid2 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 13, 129, 5.5, 25, 55 )
-    this.tip = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 19, 184, 5.5, 12, 60 )
+    this.x = 1300 + (Math.random() * 3600);
+    this.top = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x, 0, this.v, 50, 69 )
+    this.mid1 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 6, 69, this.v, 37.5, 60)
+    this.mid2 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 13, 129, this.v, 25, 55 )
+    this.tip = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 19, 184, this.v, 12, 60 )
     this.arr = [this.top, this.mid1, this.mid2, this.tip]
   }
 
