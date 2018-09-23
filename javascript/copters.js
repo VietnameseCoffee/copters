@@ -28,5 +28,18 @@ const startGame = () => {
   canvas.removeEventListener('click', startGame)
 };
 
-const audio = document.getElementById('audio');
+let audio = document.getElementById('audio');
+let nullAudio = {
+  play: () => {},
+  pause: () => {}
+}
+const toggle = document.getElementById('music-toggle')
+toggle.addEventListener('click', () => {
+  if (audio === nullAudio) {
+    audio = document.getElementById('audio');
+  } else {
+    audio = nullAudio
+  }
+})
+
 canvas.addEventListener('click', startGame);

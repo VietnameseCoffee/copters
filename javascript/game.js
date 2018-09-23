@@ -12,6 +12,7 @@ class Game {
     this.ceiling = new Brick(0, -20, 0, 1000, 20);
     this.bricks = Brick.init_bricks();
     this.score = 0;
+    this.highScore = 0;
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
@@ -90,9 +91,18 @@ class Game {
   }
 
   paintGG() {
+    if (this.score > this.highScore) {
+      this.highScore = this.score;
+    }
     this.c.font="60px Arial";
     this.c.fillStyle="white";
-    this.c.fillText(`Game Over`, 440, 150)
+    this.c.fillText(`Game Over :(`, 420, 120)
+    this.c.font="30px Arial";
+    this.c.fillStyle="white";
+    this.c.fillText(`Your High Score: ${this.highScore - 1}`, 470, 180)
+    this.c.font="38px Arial";
+    this.c.fillStyle="white";
+    this.c.fillText(`Click to play again`, 440, 330)
 
     setTimeout(() => {
       canvas.addEventListener('click', this.replay)

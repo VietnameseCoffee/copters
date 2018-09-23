@@ -245,7 +245,20 @@ const startGame = () => {
   canvas.removeEventListener('click', startGame)
 };
 
-const audio = document.getElementById('audio');
+let audio = document.getElementById('audio');
+let nullAudio = {
+  play: () => {},
+  pause: () => {}
+}
+const toggle = document.getElementById('music-toggle')
+toggle.addEventListener('click', () => {
+  if (audio === nullAudio) {
+    audio = document.getElementById('audio');
+  } else {
+    audio = nullAudio
+  }
+})
+
 canvas.addEventListener('click', startGame);
 
 
@@ -277,6 +290,7 @@ class Game {
     this.ceiling = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, -20, 0, 1000, 20);
     this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
     this.score = 0;
+    this.highScore = 0;
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
@@ -355,9 +369,18 @@ class Game {
   }
 
   paintGG() {
+    if (this.score > this.highScore) {
+      this.highScore = this.score;
+    }
     this.c.font="60px Arial";
     this.c.fillStyle="white";
-    this.c.fillText(`Game Over`, 440, 150)
+    this.c.fillText(`Game Over :(`, 420, 120)
+    this.c.font="30px Arial";
+    this.c.fillStyle="white";
+    this.c.fillText(`Your High Score: ${this.highScore - 1}`, 470, 180)
+    this.c.font="38px Arial";
+    this.c.fillStyle="white";
+    this.c.fillText(`Click to play again`, 440, 330)
 
     setTimeout(() => {
       canvas.addEventListener('click', this.replay)
