@@ -36,6 +36,15 @@ class Collidable {
     return (true)
   }
 
+  isSafeFrom(objects) {
+    for (let i=0; i < objects.length; i++) {
+      if (!this.safe(objects[i])) {
+        return false
+      }
+    }
+    return true;
+  }
+
 }
 
 export default Collidable;

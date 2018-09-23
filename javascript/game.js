@@ -40,6 +40,10 @@ class Game {
       this.bricks.push(Brick.make_brick())
     }
 
+    if (this.stalactite.x < -25) {
+      this.stalactite.reset()
+    }
+
     this.move_all();
 
     this.floor.draw(this.c);
@@ -56,10 +60,17 @@ class Game {
   alive() {
     this.score = this.score + 1;
 
-    for (let i=0; i < this.bricks.length; i++) {
-      if (!this.copter.safe(this.bricks[i])) {
-        return false
-      }
+    // for (let i=0; i < this.bricks.length; i++) {
+    //   if (!this.copter.safe(this.bricks[i])) {
+    //     return false
+    //   }
+    // }
+    if (!this.copter.isSafeFrom(this.bricks)) {
+      return false
+    }
+
+    if (!this.copter.isSafeFrom(this.stalactite.arr)) {
+      return false
     }
     return (
       this.copter.safe(this.ceiling) &&
