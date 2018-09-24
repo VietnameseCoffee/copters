@@ -401,13 +401,13 @@ class Game {
   }
 
   paintIntro (){
-    this.c.font="40px arial";
+    this.c.font="40px Sans Serif";
     this.c.fillStyle="white"
     this.c.fillText(`Instructions`, 340, 180)
-    this.c.font="28px arial";
+    this.c.font="28px Sans Serif";
     this.c.fontStyle="white"
     this.c.fillText(`Click to start the game`, 250, 220)
-    this.c.font="28px arial";
+    this.c.font="28px Sans Serif";
     this.c.fontStyle="white"
     this.c.fillText(`Click and hold on your mouse to lift the copter`, 200, 250)
   }
@@ -416,13 +416,13 @@ class Game {
     if (this.score > this.highScore) {
       this.highScore = this.score;
     }
-    this.c.font="60px Arial";
+    this.c.font="60px Sans Serif";
     this.c.fillStyle="white";
     this.c.fillText(`Game Over :(`, 420, 120)
-    this.c.font="30px Arial";
+    this.c.font="30px Sans Serif";
     this.c.fillStyle="white";
     this.c.fillText(`Your High Score: ${this.highScore - 1}`, 470, 180)
-    this.c.font="38px Arial";
+    this.c.font="38px Sans Serif";
     this.c.fillStyle="white";
     this.c.fillText(`Click to play again`, 440, 330)
 

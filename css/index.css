@@ -4,16 +4,32 @@ body {
 
 h1 {
   text-align: center;
-  font: 48px arial, sans-serif;
+  font: 80px arial, sans-serif;
   font-weight: 400;
   margin-bottom: 5px;
+  margin-top: 19px;
   color: white;
+  font-family: 'BoxfontRoundRegular';
+}
+
+.game-container {
+  text-align: center;
+}
+
+.app-container {
+  width: 1202px;
+  margin: 0 auto;
 }
 
 .wall {
   background-image: url("../imports/wall2.png");
   height: 17px;
   filter: brightness(180%);
+  width: 1202px;
+  display: inline-block;
+  margin-bottom: -5px;
+  margin-top: -5px;
+
 }
 
 #canvas-container {
@@ -22,13 +38,12 @@ h1 {
 }
 
 #canvas {
-  border: 1px solid black;
   background-image: url('../imports/lava_cave.jpg');
-  box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.25);
+  /*box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.25);*/
 }
 
 #music-toggle {
+  margin-top: 3px;
   color: white;
-  margin-left: 200px;
   font-size: 26px;
 }

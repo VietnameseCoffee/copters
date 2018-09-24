@@ -6,21 +6,24 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
+  <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/boxfont-round" type="text/css"/>
   <body>
     <h1>Copters</h1>
-    <div class="game-container">
-      <div class="wall"></div>
+    <div class="app-container">
+      <div class="screen-container">
 
-      <div id="canvas-container">
-        <canvas id="canvas"></canvas>
+        <div class="wall"></div>
+        <div id="canvas-container">
+          <canvas id="canvas"></canvas>
+        </div>
+        <div class="wall"></div>
+
       </div>
 
-      <div class="wall"></div>
-
+      <i id="music-toggle" class="fa fa-volume-up"></i>
     </div>
-    <audio id="audio" src="./imports/helicopter.wav" type="audio/wav"></audio>
-    <i id="music-toggle" class="fa fa-volume-up"></i>
 
+    <audio id="audio" src="./imports/helicopter.wav" type="audio/wav"></audio>
     <script type="text/javascript" src="javascript/bundle.js"></script>
   </body>
 </html>
