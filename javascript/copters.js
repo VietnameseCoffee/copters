@@ -1,4 +1,3 @@
-import Helicopter from './helicopter';
 import HeliSprite from './heli_sprite'
 import Game from './game.js'
 

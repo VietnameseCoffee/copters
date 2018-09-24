@@ -5,16 +5,15 @@ import Stalactite from './stalactite';
 
 class Game {
 
-  constructor(c, canvas) {
+  constructor(c) {
     this.c = c;
-    // this.canvas = canvas;
     this.copter = new Helicopter(250, 100, 0);
     this.floor = new Brick(0, 616, 0, 1000, 20);
     this.ceiling = new Brick(0, -20, 0, 1000, 20);
     this.bricks = Brick.init_bricks();
     this.score = 0;
     this.highScore = 0;
-    this.stalactite = new Stalactite(1500, 0);
+    this.stalactite = new Stalactite(1800, 0);
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);

@@ -234,10 +234,8 @@ class Collidable {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helicopter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helicopter */ "./javascript/helicopter.js");
-/* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./heli_sprite */ "./javascript/heli_sprite.js");
-/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./game.js */ "./javascript/game.js");
-
+/* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./heli_sprite */ "./javascript/heli_sprite.js");
+/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game.js */ "./javascript/game.js");
 
 
 
@@ -246,7 +244,7 @@ const canvas = document.getElementById("canvas");
 canvas.width = 1200;
 canvas.height = 616;
 const c = canvas.getContext('2d');
-let game = new _game_js__WEBPACK_IMPORTED_MODULE_2__["default"](c, canvas);
+let game = new _game_js__WEBPACK_IMPORTED_MODULE_1__["default"](c, canvas);
 
 game.paintIntro();
 
@@ -312,16 +310,15 @@ __webpack_require__.r(__webpack_exports__);
 
 class Game {
 
-  constructor(c, canvas) {
+  constructor(c) {
     this.c = c;
-    // this.canvas = canvas;
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
     this.floor = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, 616, 0, 1000, 20);
     this.ceiling = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, -20, 0, 1000, 20);
     this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
     this.score = 0;
     this.highScore = 0;
-    this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_3__["default"](1500, 0);
+    this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_3__["default"](1800, 0);
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
@@ -635,7 +632,7 @@ class Stalactite extends _brick__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   reset() {
     // console.log(this.top.x)
-    this.x = 1300 + (Math.random() * 3600);
+    this.x = 1300 + (Math.random() * 5000);
     this.top = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x, 0, this.v, 50, 69 )
     this.mid1 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 6, 69, this.v, 37.5, 60)
     this.mid2 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 13, 129, this.v, 25, 55 )
