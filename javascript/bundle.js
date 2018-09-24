@@ -403,13 +403,13 @@ class Game {
   paintIntro (){
     this.c.font="40px Sans Serif";
     this.c.fillStyle="white"
-    this.c.fillText(`Instructions`, 340, 180)
+    this.c.fillText(`Instructions`, 500, 210)
     this.c.font="28px Sans Serif";
     this.c.fontStyle="white"
-    this.c.fillText(`Click to start the game`, 250, 220)
+    this.c.fillText(`Click to start the game`, 450, 310)
     this.c.font="28px Sans Serif";
     this.c.fontStyle="white"
-    this.c.fillText(`Click and hold on your mouse to lift the copter`, 200, 250)
+    this.c.fillText(`Click and hold on your mouse to lift the copter`, 290, 350)
   }
 
   paintGG() {
