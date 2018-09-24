@@ -34,6 +34,7 @@ class Game {
     this.c.fillText(`Score: ${this.score}`, 50, 50)
 
     this.copter.move(this.c);
+    this.sprite.draw(this.c);
 
     if (currentBrick.x < -25){
       this.bricks.shift();

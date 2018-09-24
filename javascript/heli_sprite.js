@@ -1,14 +1,14 @@
 import Collidable from './collidable';
 
 let copter = new Image();
-copter.src = "./../imports/helicopter_sprites.png"
+copter.src = "https://raw.githubusercontent.com/VietnameseCoffee/copters/master/imports/helicopter_sprites.png"
 
 class HeliSprite extends Collidable{
 
   constructor(x, y, v) {
     super(x, y, v)
     let copter = new Image();
-    copter.src = "../imports/helicopter_sprites.png"
+    copter.src = "https://raw.githubusercontent.com/VietnameseCoffee/copters/master/imports/helicopter_sprites.png"
 
     this.width = 423;
     this.height = 600;
@@ -19,7 +19,8 @@ class HeliSprite extends Collidable{
   }
 
   draw(c) {
-    c.drawImage(this.image, 10, 10)
+    console.log("git")
+    c.drawImage(this.image, 10, 10,200, 200, 100, 100, 200, 200)
   }
 }
 

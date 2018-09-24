@@ -247,7 +247,7 @@ let game = new _game_js__WEBPACK_IMPORTED_MODULE_0__["default"](c, canvas);
 console.log(game.sprite)
 
 game.paintIntro();
-// game.sprite.draw(game.c)
+game.sprite.draw(game.c)
 
 const startGame = () => {
   game.play();
@@ -340,6 +340,7 @@ class Game {
     this.c.fillText(`Score: ${this.score}`, 50, 50)
 
     this.copter.move(this.c);
+    this.sprite.draw(this.c);
 
     if (currentBrick.x < -25){
       this.bricks.shift();
@@ -455,14 +456,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let copter = new Image();
-copter.src = "./../imports/helicopter_sprites.png"
+copter.src = "https://raw.githubusercontent.com/VietnameseCoffee/copters/master/imports/helicopter_sprites.png"
 
 class HeliSprite extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"]{
 
   constructor(x, y, v) {
     super(x, y, v)
     let copter = new Image();
-    copter.src = "../imports/helicopter_sprites.png"
+    copter.src = "https://raw.githubusercontent.com/VietnameseCoffee/copters/master/imports/helicopter_sprites.png"
 
     this.width = 423;
     this.height = 600;
@@ -473,7 +474,8 @@ class HeliSprite extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"]{
   }
 
   draw(c) {
-    c.drawImage(this.image, 10, 10)
+    console.log("git")
+    c.drawImage(this.image, 10, 10,200, 200, 100, 100, 200, 200)
   }
 }
 
