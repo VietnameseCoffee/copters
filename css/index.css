@@ -27,19 +27,19 @@ h1 {
   filter: brightness(180%);
   width: 1202px;
   display: inline-block;
-  margin-bottom: -5px;
-  margin-top: -5px;
 
 }
 
 #canvas-container {
   display: flex;
   justify-content: center;
+  margin-bottom: -3px;
+  margin-top: -5px;
 }
 
 #canvas {
   background-image: url('../imports/lava_cave.jpg');
-  /*box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.25);*/
+  margin-bottom: 0;
 }
 
 #music-toggle {
