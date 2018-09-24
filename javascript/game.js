@@ -8,6 +8,7 @@ class Game {
   constructor(c) {
     this.c = c;
     this.copter = new Helicopter(250, 100, 0);
+    this.sprite = new HeliSprite(250, 100, 0)
     this.floor = new Brick(0, 616, 0, 1000, 20);
     this.ceiling = new Brick(0, -20, 0, 1000, 20);
     this.bricks = Brick.init_bricks();
@@ -59,11 +60,6 @@ class Game {
   alive() {
     this.score = this.score + 1;
 
-    // for (let i=0; i < this.bricks.length; i++) {
-    //   if (!this.copter.safe(this.bricks[i])) {
-    //     return false
-    //   }
-    // }
     if (!this.copter.isSafeFrom(this.bricks)) {
       return false
     }

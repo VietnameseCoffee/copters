@@ -234,9 +234,7 @@ class Collidable {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./heli_sprite */ "./javascript/heli_sprite.js");
-/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game.js */ "./javascript/game.js");
-
+/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game.js */ "./javascript/game.js");
 
 
 
@@ -244,9 +242,12 @@ const canvas = document.getElementById("canvas");
 canvas.width = 1200;
 canvas.height = 616;
 const c = canvas.getContext('2d');
-let game = new _game_js__WEBPACK_IMPORTED_MODULE_1__["default"](c, canvas);
+let game = new _game_js__WEBPACK_IMPORTED_MODULE_0__["default"](c, canvas);
+
+console.log(game.sprite)
 
 game.paintIntro();
+// game.sprite.draw(game.c)
 
 const startGame = () => {
   game.play();
@@ -313,6 +314,7 @@ class Game {
   constructor(c) {
     this.c = c;
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
+    this.sprite = new _heli_sprite__WEBPACK_IMPORTED_MODULE_1__["default"](250, 100, 0)
     this.floor = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, 616, 0, 1000, 20);
     this.ceiling = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, -20, 0, 1000, 20);
     this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
@@ -364,11 +366,6 @@ class Game {
   alive() {
     this.score = this.score + 1;
 
-    // for (let i=0; i < this.bricks.length; i++) {
-    //   if (!this.copter.safe(this.bricks[i])) {
-    //     return false
-    //   }
-    // }
     if (!this.copter.isSafeFrom(this.bricks)) {
       return false
     }
@@ -454,20 +451,29 @@ class Game {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _collidable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collidable */ "./javascript/collidable.js");
+
 
 let copter = new Image();
-copter.src = "../imports/helicopter_sprites.png"
+copter.src = "./../imports/helicopter_sprites.png"
 
-class HeliSprite {
+class HeliSprite extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"]{
 
-  constructor (options) {
-
+  constructor(x, y, v) {
+    super(x, y, v)
     let copter = new Image();
     copter.src = "../imports/helicopter_sprites.png"
 
     this.width = 423;
     this.height = 600;
     this.image = copter;
+
+    this.draw = this.draw.bind(this);
+    this.move = this.move.bind(this);
+  }
+
+  draw(c) {
+    c.drawImage(this.image, 10, 10)
   }
 }
 
@@ -605,7 +611,6 @@ class Stalactite extends _brick__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   move(c) {
-    console.log(this.arr[0].x)
     this.top.displace(c)
     this.mid1.displace(c)
     this.mid2.displace(c)

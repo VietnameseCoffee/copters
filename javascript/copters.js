@@ -1,4 +1,3 @@
-import HeliSprite from './heli_sprite'
 import Game from './game.js'
 
 
@@ -8,7 +7,10 @@ canvas.height = 616;
 const c = canvas.getContext('2d');
 let game = new Game(c, canvas);
 
+console.log(game.sprite)
+
 game.paintIntro();
+// game.sprite.draw(game.c)
 
 const startGame = () => {
   game.play();

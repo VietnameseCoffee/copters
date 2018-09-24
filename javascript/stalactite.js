@@ -19,7 +19,6 @@ class Stalactite extends Brick {
   }
 
   move(c) {
-    console.log(this.arr[0].x)
     this.top.displace(c)
     this.mid1.displace(c)
     this.mid2.displace(c)
