@@ -86,6 +86,39 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./javascript/background.js":
+/*!**********************************!*\
+  !*** ./javascript/background.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+class Background {
+
+  constructor() {
+    let image1 = new Image;
+    image1.src = "https://raw.githubusercontent.com/VietnameseCoffee/copters/master/imports/lava_cave.jpg"
+    this.img = image1
+    this.offset = 0;
+  }
+
+  draw(c) {
+    this.offset = this.offset - 0.23;
+    c.globalAlpha = 0.7;
+    c.drawImage(this.img, 0, 0, 996, 615, this.offset, 0, 1202, 630);
+    c.drawImage(this.img, 0, 0, 996, 615, 1202 + this.offset, 0, 1202, 630);
+    c.globalAlpha = 1.0;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Background);
+
+
+/***/ }),
+
 /***/ "./javascript/brick.js":
 /*!*****************************!*\
   !*** ./javascript/brick.js ***!
@@ -193,7 +226,7 @@ class Collidable {
 
   safe(obj) {
 
-    const thisFront = this.x + this.width - 16;
+    const thisFront = this.x + this.width - 23;
     const thisBack = this.x + 2;
     const thisTop = this.y + 4;
     const thisBottom = this.y + this.height - 3;
@@ -235,7 +268,6 @@ class Collidable {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game.js */ "./javascript/game.js");
-
 
 
 const canvas = document.getElementById("canvas");
@@ -301,6 +333,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./heli_sprite */ "./javascript/heli_sprite.js");
 /* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
 /* harmony import */ var _stalactite__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./stalactite */ "./javascript/stalactite.js");
+/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./background */ "./javascript/background.js");
+
 
 
 
@@ -318,6 +352,7 @@ class Game {
     this.score = 0;
     this.highScore = 0;
     this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_3__["default"](1800, 0);
+    this.background = new _background__WEBPACK_IMPORTED_MODULE_4__["default"]();
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
@@ -333,9 +368,9 @@ class Game {
     let currentBrick = this.bricks[0];
     this.c.clearRect(0,0, 1200, 640);
 
+    this.background.draw(this.c)
     this.c.font="28px arial";
     this.c.fillText(`Score: ${this.score}`, 50, 50)
-
     this.copter.move(this.c);
 
     if (currentBrick.x < -25){
@@ -392,6 +427,7 @@ class Game {
   }
 
   paintIntro (){
+    this.background.draw(this.c);
     this.c.font="40px Sans Serif";
     this.c.fillStyle="white"
     this.c.fillText(`Instructions`, 500, 210)
@@ -428,6 +464,7 @@ class Game {
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
     this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
     this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_3__["default"](1500, 0);
+    this.background.offset = 0;
 
     canvas.removeEventListener('click', this.replay)
     this.play();

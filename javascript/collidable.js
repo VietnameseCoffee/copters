@@ -20,7 +20,7 @@ class Collidable {
 
   safe(obj) {
 
-    const thisFront = this.x + this.width - 16;
+    const thisFront = this.x + this.width - 23;
     const thisBack = this.x + 2;
     const thisTop = this.y + 4;
     const thisBottom = this.y + this.height - 3;

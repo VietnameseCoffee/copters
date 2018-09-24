@@ -38,8 +38,6 @@ h1 {
 }
 
 #canvas {
-  background-image: url('../imports/lava_cave.jpg');
-  filter: brightness(85%);
   margin-bottom: 0;
 }
 

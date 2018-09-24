@@ -1,6 +1,5 @@
 import Game from './game.js'
 
-
 const canvas = document.getElementById("canvas");
 canvas.width = 1200;
 canvas.height = 616;

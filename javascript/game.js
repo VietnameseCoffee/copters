@@ -2,6 +2,7 @@ import Helicopter from './helicopter';
 import HeliSprite from './heli_sprite'
 import Brick from './brick';
 import Stalactite from './stalactite';
+import Background from './background';
 
 class Game {
 
@@ -15,6 +16,7 @@ class Game {
     this.score = 0;
     this.highScore = 0;
     this.stalactite = new Stalactite(1800, 0);
+    this.background = new Background();
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
@@ -30,9 +32,9 @@ class Game {
     let currentBrick = this.bricks[0];
     this.c.clearRect(0,0, 1200, 640);
 
+    this.background.draw(this.c)
     this.c.font="28px arial";
     this.c.fillText(`Score: ${this.score}`, 50, 50)
-
     this.copter.move(this.c);
 
     if (currentBrick.x < -25){
@@ -89,6 +91,7 @@ class Game {
   }
 
   paintIntro (){
+    this.background.draw(this.c);
     this.c.font="40px Sans Serif";
     this.c.fillStyle="white"
     this.c.fillText(`Instructions`, 500, 210)
@@ -125,6 +128,7 @@ class Game {
     this.copter = new Helicopter(250, 100, 0);
     this.bricks = Brick.init_bricks();
     this.stalactite = new Stalactite(1500, 0);
+    this.background.offset = 0;
 
     canvas.removeEventListener('click', this.replay)
     this.play();
