@@ -20,16 +20,16 @@ class Collidable {
 
   safe(obj) {
 
-    const thisFront = this.x + this.width;
-    const thisBack = this.x;
-    const thisTop = this.y;
-    const thisBottom = this.y + this.height;
+    const thisFront = this.x + this.width - 16;
+    const thisBack = this.x + 2;
+    const thisTop = this.y + 4;
+    const thisBottom = this.y + this.height - 3;
 
     const objFront = obj.x + obj.width;
     const objBack = obj.x;
     const objTop = obj.y;
     const objBottom = obj.y + obj.height;
-    //
+
     if (thisFront > objBack && thisBack < objFront) {
       return (!(thisBottom > objTop && thisTop < objBottom))
     }

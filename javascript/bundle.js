@@ -193,16 +193,16 @@ class Collidable {
 
   safe(obj) {
 
-    const thisFront = this.x + this.width;
-    const thisBack = this.x;
-    const thisTop = this.y;
-    const thisBottom = this.y + this.height;
+    const thisFront = this.x + this.width - 16;
+    const thisBack = this.x + 2;
+    const thisTop = this.y + 4;
+    const thisBottom = this.y + this.height - 3;
 
     const objFront = obj.x + obj.width;
     const objBack = obj.x;
     const objTop = obj.y;
     const objBottom = obj.y + obj.height;
-    //
+
     if (thisFront > objBack && thisBack < objFront) {
       return (!(thisBottom > objTop && thisTop < objBottom))
     }
@@ -502,7 +502,7 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     img.src = "https://raw.githubusercontent.com/VietnameseCoffee/copters/master/imports/helicopter_sprites.png"
 
     this.width = 160;
-    this.height = 68;
+    this.height = 80;
     this.g = 0.33;
     this.img = img
     this.frame = 0;
@@ -516,12 +516,12 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   draw(c) {
     this.update();
 
-    c.drawImage(this.img, 0, (this.frame * 150), 400, 150, this.x, this.y, this.width, this.height)
+    c.drawImage(this.img, 0, (this.frame * 150), 415, 150, this.x, this.y, this.width, this.height)
   }
 
   update () {
     this.tick = this.tick + 1;
-    if (this.tick === 8) {
+    if (this.tick === 3) {
       this.tick = 0;
       this.frame = (this.frame + 1);
       if (this.frame === 4) {

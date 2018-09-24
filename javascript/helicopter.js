@@ -10,7 +10,7 @@ class Helicopter extends Collidable {
     img.src = "https://raw.githubusercontent.com/VietnameseCoffee/copters/master/imports/helicopter_sprites.png"
 
     this.width = 160;
-    this.height = 68;
+    this.height = 80;
     this.g = 0.33;
     this.img = img
     this.frame = 0;
@@ -24,12 +24,12 @@ class Helicopter extends Collidable {
   draw(c) {
     this.update();
 
-    c.drawImage(this.img, 0, (this.frame * 150), 400, 150, this.x, this.y, this.width, this.height)
+    c.drawImage(this.img, 0, (this.frame * 150), 415, 150, this.x, this.y, this.width, this.height)
   }
 
   update () {
     this.tick = this.tick + 1;
-    if (this.tick === 8) {
+    if (this.tick === 3) {
       this.tick = 0;
       this.frame = (this.frame + 1);
       if (this.frame === 4) {
