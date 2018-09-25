@@ -33,10 +33,16 @@ class Game {
     let currentBrick = this.bricks[0];
     let lastBullet = this.activeBullets[0];
     this.c.clearRect(0,0, 1200, 640);
-
     this.background.draw(this.c)
-    this.c.font="28px arial";
+
+    this.c.font="20px Sans Serif";
+    this.c.fontStyle="white"
     this.c.fillText(`Score: ${this.score}`, 50, 50)
+
+    this.c.font="20px Sans Serif";
+    this.c.fontStyle="white"
+    this.c.fillText(`Bullets: ${this.copter.bullets}`, 50, 80)
+
     this.copter.move(this.c);
 
     if (currentBrick.x < -25){
@@ -116,13 +122,16 @@ class Game {
       this.background.draw(this.c)
       this.c.font="40px Sans Serif";
       this.c.fillStyle="white"
-      this.c.fillText(`Instructions`, 500, 210)
+      this.c.fillText(`Instructions`, 500, 210);
       this.c.font="28px Sans Serif";
       this.c.fontStyle="white"
-      this.c.fillText(`Click to start the game`, 450, 310)
+      this.c.fillText(`Click to start the game`, 450, 310);
       this.c.font="28px Sans Serif";
       this.c.fontStyle="white"
-      this.c.fillText(`Click and hold on your mouse to lift the copter`, 290, 350)
+      this.c.fillText(`Click and hold on your mouse to lift the copter`, 290, 350);
+      this.c.font="28px Sans Serif";
+      this.c.fontStyle="white";
+      this.c.fillText(`Press space to shoot bullets`, 420, 390);
     }, 400)
   }
 
@@ -138,7 +147,7 @@ class Game {
     this.c.fillText(`Your High Score: ${this.highScore - 1}`, 470, 180)
     this.c.font="38px Sans Serif";
     this.c.fillStyle="white";
-    this.c.fillText(`Click to play again`, 440, 330)
+    this.c.fillText(`Click to play again`, 440, 330);
 
     setTimeout(() => {
       canvas.addEventListener('click', this.replay)

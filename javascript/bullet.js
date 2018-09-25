@@ -4,8 +4,8 @@ import Collidable from './collidable';
 class Bullet extends Collidable {
   constructor(x, y, v, hp) {
     super(x, y, v, hp)
-    this.width = 10;
-    this.height = 10;
+    this.width = 40;
+    this.height = 40;
 
     this.draw = this.draw.bind(this)
   }
@@ -16,7 +16,7 @@ class Bullet extends Collidable {
     }
 
     for (let i=0; i < objects.length; i++) {
-      if (!this.safe(objects[i])) {
+      if (!this.hit(objects[i])) {
         objects[i].hp = 0;
         this.hp = 0;
         return true;
@@ -34,16 +34,18 @@ class Bullet extends Collidable {
     if (this.isDead()) {
       return;
     }
-
+    let mid = this.width / 2;
     c.beginPath();
+    c.fillStyle="#00bfbf";
+    c.arc((this.x + mid),(this.y + mid), mid,0,2*Math.PI);
+    c.fill();
     c.fillStyle="#E70F05";
-    c.fillRect((this.x),(this.y), this.width, this.height);
-    c.stroke();
 
     c.beginPath();
-    c.strokeStyle="#5D1101";
-    c.strokeRect((this.x),(this.y), this.width, this.height);
+    c.strokeStyle="#006666";
+    c.arc((this.x + mid),(this.y + mid), mid,0,2*Math.PI);
     c.stroke();
+    c.strokeStyle="#5D1101";
   }
 
 }

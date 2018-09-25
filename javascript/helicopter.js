@@ -65,7 +65,7 @@ class Helicopter extends Collidable {
       return null
     }
     this.bullets = this.bullets - 1;
-    return new Bullet(this.x + 140, this.y + 45, 5, 1);
+    return new Bullet(this.x + 100, this.y + 45, 5, 1);
 
   }
 }

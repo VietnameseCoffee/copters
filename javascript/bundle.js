@@ -221,8 +221,8 @@ __webpack_require__.r(__webpack_exports__);
 class Bullet extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(x, y, v, hp) {
     super(x, y, v, hp)
-    this.width = 10;
-    this.height = 10;
+    this.width = 40;
+    this.height = 40;
 
     this.draw = this.draw.bind(this)
   }
@@ -233,7 +233,7 @@ class Bullet extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     }
 
     for (let i=0; i < objects.length; i++) {
-      if (!this.safe(objects[i])) {
+      if (!this.hit(objects[i])) {
         objects[i].hp = 0;
         this.hp = 0;
         return true;
@@ -251,16 +251,18 @@ class Bullet extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     if (this.isDead()) {
       return;
     }
-
+    let mid = this.width / 2;
     c.beginPath();
+    c.fillStyle="#00bfbf";
+    c.arc((this.x + mid),(this.y + mid), mid,0,2*Math.PI);
+    c.fill();
     c.fillStyle="#E70F05";
-    c.fillRect((this.x),(this.y), this.width, this.height);
-    c.stroke();
 
     c.beginPath();
-    c.strokeStyle="#5D1101";
-    c.strokeRect((this.x),(this.y), this.width, this.height);
+    c.strokeStyle="#006666";
+    c.arc((this.x + mid),(this.y + mid), mid,0,2*Math.PI);
     c.stroke();
+    c.strokeStyle="#5D1101";
   }
 
 }
@@ -306,6 +308,27 @@ class Collidable {
     const thisBack = this.x + 2;
     const thisTop = this.y + 4;
     const thisBottom = this.y + this.height - 3;
+
+    const objFront = obj.x + obj.width;
+    const objBack = obj.x;
+    const objTop = obj.y;
+    const objBottom = obj.y + obj.height;
+
+    if (obj.isDead()) {
+      return true
+    }
+
+    if (thisFront > objBack && thisBack < objFront) {
+      return (!(thisBottom > objTop && thisTop < objBottom))
+    }
+    return (true)
+  }
+
+  hit(obj) {
+    const thisFront = this.x + this.width - 2;
+    const thisBack = this.x;
+    const thisTop = this.y;
+    const thisBottom = this.y + this.height;
 
     const objFront = obj.x + obj.width;
     const objBack = obj.x;
@@ -457,10 +480,16 @@ class Game {
     let currentBrick = this.bricks[0];
     let lastBullet = this.activeBullets[0];
     this.c.clearRect(0,0, 1200, 640);
-
     this.background.draw(this.c)
-    this.c.font="28px arial";
+
+    this.c.font="20px Sans Serif";
+    this.c.fontStyle="white"
     this.c.fillText(`Score: ${this.score}`, 50, 50)
+
+    this.c.font="20px Sans Serif";
+    this.c.fontStyle="white"
+    this.c.fillText(`Bullets: ${this.copter.bullets}`, 50, 80)
+
     this.copter.move(this.c);
 
     if (currentBrick.x < -25){
@@ -540,13 +569,16 @@ class Game {
       this.background.draw(this.c)
       this.c.font="40px Sans Serif";
       this.c.fillStyle="white"
-      this.c.fillText(`Instructions`, 500, 210)
+      this.c.fillText(`Instructions`, 500, 210);
       this.c.font="28px Sans Serif";
       this.c.fontStyle="white"
-      this.c.fillText(`Click to start the game`, 450, 310)
+      this.c.fillText(`Click to start the game`, 450, 310);
       this.c.font="28px Sans Serif";
       this.c.fontStyle="white"
-      this.c.fillText(`Click and hold on your mouse to lift the copter`, 290, 350)
+      this.c.fillText(`Click and hold on your mouse to lift the copter`, 290, 350);
+      this.c.font="28px Sans Serif";
+      this.c.fontStyle="white";
+      this.c.fillText(`Press space to shoot bullets`, 420, 390);
     }, 400)
   }
 
@@ -562,7 +594,7 @@ class Game {
     this.c.fillText(`Your High Score: ${this.highScore - 1}`, 470, 180)
     this.c.font="38px Sans Serif";
     this.c.fillStyle="white";
-    this.c.fillText(`Click to play again`, 440, 330)
+    this.c.fillText(`Click to play again`, 440, 330);
 
     setTimeout(() => {
       canvas.addEventListener('click', this.replay)
@@ -666,7 +698,7 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
       return null
     }
     this.bullets = this.bullets - 1;
-    return new _bullet__WEBPACK_IMPORTED_MODULE_1__["default"](this.x + 140, this.y + 45, 5, 1);
+    return new _bullet__WEBPACK_IMPORTED_MODULE_1__["default"](this.x + 100, this.y + 45, 5, 1);
 
   }
 }
