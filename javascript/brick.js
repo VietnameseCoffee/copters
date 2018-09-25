@@ -3,18 +3,20 @@ import Collidable from './collidable';
 
 class Brick extends Collidable {
 
-  constructor(x, y, v, width, height) {
-    super(x, y, v)
+  constructor(x, y, v, hp, width, height) {
+    super(x, y, v, hp)
     this.width = width;
     this.height = height;
+
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
+    this.isDead = this.isDead.bind(this);
   }
 
   static make_brick () {
     let randY = (Math.random() * 580);
     let randX = (1220);
-    return (new Brick(randX, randY, 5.5, 60, 70))
+    return (new Brick(randX, randY, 5.5, 1, 60, 70))
   }
 
   static init_bricks () {
@@ -38,6 +40,10 @@ class Brick extends Collidable {
   }
 
   draw(c) {
+    if (this.isDead()) {
+      return;
+    }
+
     c.beginPath();
     c.fillStyle="#E70F05";
     c.fillRect((this.x),(this.y), this.width, this.height);
@@ -56,6 +62,10 @@ class Brick extends Collidable {
 
   displace() {
     this.x = this.x - this.v;
+  }
+
+  isDead() {
+    return this.hp < 1;
   }
 }
 

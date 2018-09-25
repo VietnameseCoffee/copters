@@ -1,26 +1,27 @@
 import Helicopter from './helicopter';
-import HeliSprite from './heli_sprite'
 import Brick from './brick';
 import Stalactite from './stalactite';
 import Background from './background';
+import Bullet from './bullet';
 
 class Game {
 
   constructor(c) {
     this.c = c;
     this.copter = new Helicopter(250, 100, 0);
-    this.sprite = new HeliSprite(250, 100, 0)
-    this.floor = new Brick(0, 616, 0, 1000, 20);
-    this.ceiling = new Brick(0, -20, 0, 1000, 20);
+    this.floor = new Brick(0, 616, 0, 9001, 1000, 20);
+    this.ceiling = new Brick(0, -20, 0, 9001, 1000, 20);
     this.bricks = Brick.init_bricks();
     this.score = 0;
     this.highScore = 0;
     this.stalactite = new Stalactite(1800, 0);
     this.background = new Background();
+    this.activeBullets = [];
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
     this.lift = this.lift.bind(this);
+    this.replay = this.replay.bind(this);
     this.replay = this.replay.bind(this);
   }
 
@@ -30,6 +31,7 @@ class Game {
 
   animate() {
     let currentBrick = this.bricks[0];
+    let lastBullet = this.activeBullets[0];
     this.c.clearRect(0,0, 1200, 640);
 
     this.background.draw(this.c)
@@ -45,6 +47,14 @@ class Game {
     if (this.stalactite.x < -25) {
       this.stalactite.reset()
     }
+
+    if (lastBullet && lastBullet.x > 1300) {
+      this.activeBullets.shift();
+    }
+
+    this.activeBullets.forEach((bullet) => {
+      bullet.checkHit(this.bricks);
+    })
 
     this.move_all();
 
@@ -79,6 +89,10 @@ class Game {
       this.bricks[i].move(this.c)
     }
 
+    this.activeBullets.forEach((bullet) => {
+      bullet.move(this.c);
+    })
+
     this.stalactite.move(this.c)
   }
 
@@ -90,17 +104,26 @@ class Game {
     this.copter.unlift();
   }
 
+  shoot() {
+    let bullet = this.copter.shoot()
+    if (bullet) {
+      this.activeBullets.push(bullet)
+    }
+  }
+
   paintIntro (){
-    this.background.draw(this.c);
-    this.c.font="40px Sans Serif";
-    this.c.fillStyle="white"
-    this.c.fillText(`Instructions`, 500, 210)
-    this.c.font="28px Sans Serif";
-    this.c.fontStyle="white"
-    this.c.fillText(`Click to start the game`, 450, 310)
-    this.c.font="28px Sans Serif";
-    this.c.fontStyle="white"
-    this.c.fillText(`Click and hold on your mouse to lift the copter`, 290, 350)
+    setTimeout(() => {
+      this.background.draw(this.c)
+      this.c.font="40px Sans Serif";
+      this.c.fillStyle="white"
+      this.c.fillText(`Instructions`, 500, 210)
+      this.c.font="28px Sans Serif";
+      this.c.fontStyle="white"
+      this.c.fillText(`Click to start the game`, 450, 310)
+      this.c.font="28px Sans Serif";
+      this.c.fontStyle="white"
+      this.c.fillText(`Click and hold on your mouse to lift the copter`, 290, 350)
+    }, 400)
   }
 
   paintGG() {
@@ -129,6 +152,7 @@ class Game {
     this.bricks = Brick.init_bricks();
     this.stalactite = new Stalactite(1500, 0);
     this.background.offset = 0;
+    this.activeBullets = [];
 
     canvas.removeEventListener('click', this.replay)
     this.play();

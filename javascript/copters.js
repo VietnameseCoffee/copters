@@ -25,6 +25,7 @@ const startGame = () => {
 };
 
 let audio = document.getElementById('audio');
+
 let nullAudio = {
   play: () => {},
   pause: () => {}
@@ -44,5 +45,9 @@ toggle.addEventListener('click', () => {
 
   }
 })
-
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+      game.shoot();
+    }
+}
 canvas.addEventListener('click', startGame);

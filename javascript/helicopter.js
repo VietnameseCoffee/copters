@@ -1,5 +1,5 @@
 import Collidable from './collidable';
-
+import Bullet from './bullet';
 
 class Helicopter extends Collidable {
 
@@ -15,10 +15,11 @@ class Helicopter extends Collidable {
     this.img = img
     this.frame = 0;
     this.tick = 0;
+    this.bullets = 3;
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
-    this.update = this.update.bind(this);
+    this.update = this.update.bind(this);;
   }
 
   draw(c) {
@@ -57,6 +58,15 @@ class Helicopter extends Collidable {
       this.v = this.v + 2.9;
     }
     this.g = 0.67;
+  }
+
+  shoot() {
+    if (this.bullets < 1) {
+      return null
+    }
+    this.bullets = this.bullets - 1;
+    return new Bullet(this.x + 140, this.y + 45, 5, 1);
+
   }
 }
 

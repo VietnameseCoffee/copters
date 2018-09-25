@@ -6,10 +6,10 @@ class Stalactite extends Brick {
     super(x)
     this.v = 4.2;
 
-    this.top = new Brick(this.x, 0, this.v, 50, 69 )
-    this.mid1 = new Brick(this.x + 6, 69, this.v, 37.5, 60)
-    this.mid2 = new Brick(this.x + 13, 129, this.v, 25, 55 )
-    this.tip = new Brick(this.x + 19, 184, this.v, 12, 60 )
+    this.top = new Brick(this.x, 0, this.v, 9001, 50, 69)
+    this.mid1 = new Brick(this.x + 6, 69, this.v, 379001, .5, 60)
+    this.mid2 = new Brick(this.x + 13, 129, this.v, 9001, 25, 55)
+    this.tip = new Brick(this.x + 19, 184, this.v, 9001, 12, 60)
 
     this.arr = [this.top, this.mid1, this.mid2, this.tip]
 

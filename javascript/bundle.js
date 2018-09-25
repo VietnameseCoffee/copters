@@ -134,18 +134,20 @@ __webpack_require__.r(__webpack_exports__);
 
 class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
-  constructor(x, y, v, width, height) {
-    super(x, y, v)
+  constructor(x, y, v, hp, width, height) {
+    super(x, y, v, hp)
     this.width = width;
     this.height = height;
+
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
+    this.isDead = this.isDead.bind(this);
   }
 
   static make_brick () {
     let randY = (Math.random() * 580);
     let randX = (1220);
-    return (new Brick(randX, randY, 5.5, 60, 70))
+    return (new Brick(randX, randY, 5.5, 1, 60, 70))
   }
 
   static init_bricks () {
@@ -169,6 +171,10 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   draw(c) {
+    if (this.isDead()) {
+      return;
+    }
+
     c.beginPath();
     c.fillStyle="#E70F05";
     c.fillRect((this.x),(this.y), this.width, this.height);
@@ -188,9 +194,78 @@ class Brick extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
   displace() {
     this.x = this.x - this.v;
   }
+
+  isDead() {
+    return this.hp < 1;
+  }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Brick);
+
+
+/***/ }),
+
+/***/ "./javascript/bullet.js":
+/*!******************************!*\
+  !*** ./javascript/bullet.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _collidable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collidable */ "./javascript/collidable.js");
+
+
+
+class Bullet extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor(x, y, v, hp) {
+    super(x, y, v, hp)
+    this.width = 10;
+    this.height = 10;
+
+    this.draw = this.draw.bind(this)
+  }
+
+  checkHit(objects) {
+    if (this.hp < 1) {
+      return false;
+    }
+
+    for (let i=0; i < objects.length; i++) {
+      if (!this.safe(objects[i])) {
+        objects[i].hp = 0;
+        this.hp = 0;
+        return true;
+      }
+    }
+
+  }
+
+  move(c) {
+    this.x = this.x + this.v
+    this.draw(c)
+  }
+
+  draw(c) {
+    if (this.isDead()) {
+      return;
+    }
+
+    c.beginPath();
+    c.fillStyle="#E70F05";
+    c.fillRect((this.x),(this.y), this.width, this.height);
+    c.stroke();
+
+    c.beginPath();
+    c.strokeStyle="#5D1101";
+    c.strokeRect((this.x),(this.y), this.width, this.height);
+    c.stroke();
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Bullet);
 
 
 /***/ }),
@@ -208,10 +283,11 @@ __webpack_require__.r(__webpack_exports__);
 
 class Collidable {
 
-  constructor(x, y, v) {
+  constructor(x, y, v, hp) {
     this.x = x;
     this.y = y;
     this.v = v;
+    this.hp = hp;
 
     this.safe = this.safe.bind(this);
   }
@@ -236,6 +312,10 @@ class Collidable {
     const objTop = obj.y;
     const objBottom = obj.y + obj.height;
 
+    if (obj.isDead()) {
+      return true
+    }
+
     if (thisFront > objBack && thisBack < objFront) {
       return (!(thisBottom > objTop && thisTop < objBottom))
     }
@@ -251,6 +331,9 @@ class Collidable {
     return true;
   }
 
+  isDead() {
+    return this.hp < 1;
+  }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Collidable);
@@ -295,6 +378,7 @@ const startGame = () => {
 };
 
 let audio = document.getElementById('audio');
+
 let nullAudio = {
   play: () => {},
   pause: () => {}
@@ -314,7 +398,11 @@ toggle.addEventListener('click', () => {
 
   }
 })
-
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+      game.shoot();
+    }
+}
 canvas.addEventListener('click', startGame);
 
 
@@ -330,10 +418,10 @@ canvas.addEventListener('click', startGame);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helicopter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helicopter */ "./javascript/helicopter.js");
-/* harmony import */ var _heli_sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./heli_sprite */ "./javascript/heli_sprite.js");
-/* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
-/* harmony import */ var _stalactite__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./stalactite */ "./javascript/stalactite.js");
-/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./background */ "./javascript/background.js");
+/* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./brick */ "./javascript/brick.js");
+/* harmony import */ var _stalactite__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stalactite */ "./javascript/stalactite.js");
+/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./background */ "./javascript/background.js");
+/* harmony import */ var _bullet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./bullet */ "./javascript/bullet.js");
 
 
 
@@ -345,18 +433,19 @@ class Game {
   constructor(c) {
     this.c = c;
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
-    this.sprite = new _heli_sprite__WEBPACK_IMPORTED_MODULE_1__["default"](250, 100, 0)
-    this.floor = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, 616, 0, 1000, 20);
-    this.ceiling = new _brick__WEBPACK_IMPORTED_MODULE_2__["default"](0, -20, 0, 1000, 20);
-    this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
+    this.floor = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, 616, 0, 9001, 1000, 20);
+    this.ceiling = new _brick__WEBPACK_IMPORTED_MODULE_1__["default"](0, -20, 0, 9001, 1000, 20);
+    this.bricks = _brick__WEBPACK_IMPORTED_MODULE_1__["default"].init_bricks();
     this.score = 0;
     this.highScore = 0;
-    this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_3__["default"](1800, 0);
-    this.background = new _background__WEBPACK_IMPORTED_MODULE_4__["default"]();
+    this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_2__["default"](1800, 0);
+    this.background = new _background__WEBPACK_IMPORTED_MODULE_3__["default"]();
+    this.activeBullets = [];
 
     this.alive = this.alive.bind(this);
     this.animate = this.animate.bind(this);
     this.lift = this.lift.bind(this);
+    this.replay = this.replay.bind(this);
     this.replay = this.replay.bind(this);
   }
 
@@ -366,6 +455,7 @@ class Game {
 
   animate() {
     let currentBrick = this.bricks[0];
+    let lastBullet = this.activeBullets[0];
     this.c.clearRect(0,0, 1200, 640);
 
     this.background.draw(this.c)
@@ -375,12 +465,20 @@ class Game {
 
     if (currentBrick.x < -25){
       this.bricks.shift();
-      this.bricks.push(_brick__WEBPACK_IMPORTED_MODULE_2__["default"].make_brick())
+      this.bricks.push(_brick__WEBPACK_IMPORTED_MODULE_1__["default"].make_brick())
     }
 
     if (this.stalactite.x < -25) {
       this.stalactite.reset()
     }
+
+    if (lastBullet && lastBullet.x > 1300) {
+      this.activeBullets.shift();
+    }
+
+    this.activeBullets.forEach((bullet) => {
+      bullet.checkHit(this.bricks);
+    })
 
     this.move_all();
 
@@ -415,6 +513,10 @@ class Game {
       this.bricks[i].move(this.c)
     }
 
+    this.activeBullets.forEach((bullet) => {
+      bullet.move(this.c);
+    })
+
     this.stalactite.move(this.c)
   }
 
@@ -426,17 +528,26 @@ class Game {
     this.copter.unlift();
   }
 
+  shoot() {
+    let bullet = this.copter.shoot()
+    if (bullet) {
+      this.activeBullets.push(bullet)
+    }
+  }
+
   paintIntro (){
-    this.background.draw(this.c);
-    this.c.font="40px Sans Serif";
-    this.c.fillStyle="white"
-    this.c.fillText(`Instructions`, 500, 210)
-    this.c.font="28px Sans Serif";
-    this.c.fontStyle="white"
-    this.c.fillText(`Click to start the game`, 450, 310)
-    this.c.font="28px Sans Serif";
-    this.c.fontStyle="white"
-    this.c.fillText(`Click and hold on your mouse to lift the copter`, 290, 350)
+    setTimeout(() => {
+      this.background.draw(this.c)
+      this.c.font="40px Sans Serif";
+      this.c.fillStyle="white"
+      this.c.fillText(`Instructions`, 500, 210)
+      this.c.font="28px Sans Serif";
+      this.c.fontStyle="white"
+      this.c.fillText(`Click to start the game`, 450, 310)
+      this.c.font="28px Sans Serif";
+      this.c.fontStyle="white"
+      this.c.fillText(`Click and hold on your mouse to lift the copter`, 290, 350)
+    }, 400)
   }
 
   paintGG() {
@@ -462,9 +573,10 @@ class Game {
     this.score = 0;
 
     this.copter = new _helicopter__WEBPACK_IMPORTED_MODULE_0__["default"](250, 100, 0);
-    this.bricks = _brick__WEBPACK_IMPORTED_MODULE_2__["default"].init_bricks();
-    this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_3__["default"](1500, 0);
+    this.bricks = _brick__WEBPACK_IMPORTED_MODULE_1__["default"].init_bricks();
+    this.stalactite = new _stalactite__WEBPACK_IMPORTED_MODULE_2__["default"](1500, 0);
     this.background.offset = 0;
+    this.activeBullets = [];
 
     canvas.removeEventListener('click', this.replay)
     this.play();
@@ -472,47 +584,6 @@ class Game {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Game);
-
-
-/***/ }),
-
-/***/ "./javascript/heli_sprite.js":
-/*!***********************************!*\
-  !*** ./javascript/heli_sprite.js ***!
-  \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _collidable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collidable */ "./javascript/collidable.js");
-
-
-let copter = new Image();
-copter.src = "https://raw.githubusercontent.com/VietnameseCoffee/copters/master/imports/helicopter_sprites.png"
-
-class HeliSprite extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"]{
-
-  constructor(x, y, v) {
-    super(x, y, v)
-    let copter = new Image();
-    copter.src = "https://raw.githubusercontent.com/VietnameseCoffee/copters/master/imports/helicopter_sprites.png"
-
-    this.width = 423;
-    this.height = 600;
-    this.image = copter;
-
-    this.draw = this.draw.bind(this);
-    this.move = this.move.bind(this);
-  }
-
-  draw(c) {
-    console.log("git")
-    c.drawImage(this.image, 10, 10,200, 200, 100, 100, 200, 200)
-  }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (HeliSprite);
 
 
 /***/ }),
@@ -527,6 +598,7 @@ class HeliSprite extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"]{
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _collidable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collidable */ "./javascript/collidable.js");
+/* harmony import */ var _bullet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bullet */ "./javascript/bullet.js");
 
 
 
@@ -544,10 +616,11 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     this.img = img
     this.frame = 0;
     this.tick = 0;
+    this.bullets = 3;
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
-    this.update = this.update.bind(this);
+    this.update = this.update.bind(this);;
   }
 
   draw(c) {
@@ -587,6 +660,15 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     }
     this.g = 0.67;
   }
+
+  shoot() {
+    if (this.bullets < 1) {
+      return null
+    }
+    this.bullets = this.bullets - 1;
+    return new _bullet__WEBPACK_IMPORTED_MODULE_1__["default"](this.x + 140, this.y + 45, 5, 1);
+
+  }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Helicopter);
@@ -612,10 +694,10 @@ class Stalactite extends _brick__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(x)
     this.v = 4.2;
 
-    this.top = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x, 0, this.v, 50, 69 )
-    this.mid1 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 6, 69, this.v, 37.5, 60)
-    this.mid2 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 13, 129, this.v, 25, 55 )
-    this.tip = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 19, 184, this.v, 12, 60 )
+    this.top = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x, 0, this.v, 9001, 50, 69)
+    this.mid1 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 6, 69, this.v, 379001, .5, 60)
+    this.mid2 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 13, 129, this.v, 9001, 25, 55)
+    this.tip = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 19, 184, this.v, 9001, 12, 60)
 
     this.arr = [this.top, this.mid1, this.mid2, this.tip]
 

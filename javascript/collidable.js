@@ -2,10 +2,11 @@
 
 class Collidable {
 
-  constructor(x, y, v) {
+  constructor(x, y, v, hp) {
     this.x = x;
     this.y = y;
     this.v = v;
+    this.hp = hp;
 
     this.safe = this.safe.bind(this);
   }
@@ -30,6 +31,10 @@ class Collidable {
     const objTop = obj.y;
     const objBottom = obj.y + obj.height;
 
+    if (obj.isDead()) {
+      return true
+    }
+
     if (thisFront > objBack && thisBack < objFront) {
       return (!(thisBottom > objTop && thisTop < objBottom))
     }
@@ -45,6 +50,9 @@ class Collidable {
     return true;
   }
 
+  isDead() {
+    return this.hp < 1;
+  }
 }
 
 export default Collidable;
