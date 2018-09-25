@@ -35,13 +35,6 @@ class Game {
     this.c.clearRect(0,0, 1200, 640);
     this.background.draw(this.c)
 
-    this.c.font="20px Sans Serif";
-    this.c.fontStyle="white"
-    this.c.fillText(`Score: ${this.score}`, 50, 50)
-
-    this.c.font="20px Sans Serif";
-    this.c.fontStyle="white"
-    this.c.fillText(`Bullets: ${this.copter.bullets}`, 50, 80)
 
     this.copter.move(this.c);
 
@@ -66,6 +59,14 @@ class Game {
     })
 
     this.move_all();
+    
+    this.c.font="20px Sans Serif";
+    this.c.fillStyle="white"
+    this.c.fillText(`Score: ${this.score}`, 50, 50)
+
+    this.c.font="20px Sans Serif";
+    this.c.fillStyle="white"
+    this.c.fillText(`Bullets: ${this.copter.bullets}`, 50, 80)
 
     this.floor.draw(this.c);
     this.ceiling.draw(this.c);
