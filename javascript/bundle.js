@@ -234,7 +234,7 @@ class Bullet extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
     for (let i=0; i < objects.length; i++) {
       if (!this.hit(objects[i])) {
-        objects[i].hp = 0;
+        objects[i].hp = objects[i].hp - 1;
         this.hp = 0;
         return true;
       }
@@ -507,6 +507,9 @@ class Game {
 
     this.activeBullets.forEach((bullet) => {
       bullet.checkHit(this.bricks);
+    })
+    this.activeBullets.forEach((bullet) => {
+      bullet.checkHit(this.stalactite.arr);
     })
 
     this.move_all();

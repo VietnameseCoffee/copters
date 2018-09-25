@@ -17,7 +17,7 @@ class Bullet extends Collidable {
 
     for (let i=0; i < objects.length; i++) {
       if (!this.hit(objects[i])) {
-        objects[i].hp = 0;
+        objects[i].hp = objects[i].hp - 1;
         this.hp = 0;
         return true;
       }

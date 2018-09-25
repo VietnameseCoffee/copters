@@ -61,6 +61,9 @@ class Game {
     this.activeBullets.forEach((bullet) => {
       bullet.checkHit(this.bricks);
     })
+    this.activeBullets.forEach((bullet) => {
+      bullet.checkHit(this.stalactite.arr);
+    })
 
     this.move_all();
 
