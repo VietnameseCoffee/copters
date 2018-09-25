@@ -44,7 +44,6 @@ class Stalactite extends Brick {
   }
 
   reset() {
-    // console.log(this.top.x)
     this.x = 1300 + (Math.random() * 5000);
     this.top = new Brick(this.x, 0, this.v, 50, 69 )
     this.mid1 = new Brick(this.x + 6, 69, this.v, 37.5, 60)

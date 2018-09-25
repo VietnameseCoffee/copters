@@ -768,7 +768,6 @@ class Stalactite extends _brick__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   reset() {
-    // console.log(this.top.x)
     this.x = 1300 + (Math.random() * 5000);
     this.top = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x, 0, this.v, 50, 69 )
     this.mid1 = new _brick__WEBPACK_IMPORTED_MODULE_0__["default"](this.x + 6, 69, this.v, 37.5, 60)
