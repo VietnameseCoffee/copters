@@ -652,7 +652,7 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     this.img = img
     this.frame = 0;
     this.tick = 0;
-    this.bullets = 3;
+    this.bullets = 10;
 
     this.draw = this.draw.bind(this);
     this.move = this.move.bind(this);
@@ -687,14 +687,14 @@ class Helicopter extends _collidable__WEBPACK_IMPORTED_MODULE_0__["default"] {
     if (this.v > 1) {
       this.v = this.v - 2.8;
     }
-    this.g = -0.52;
+    this.g = -0.42;
   }
 
   unlift() {
     if (this.v > -1.0) {
       this.v = this.v + 2.9;
     }
-    this.g = 0.67;
+    this.g = 0.52;
   }
 
   shoot() {
