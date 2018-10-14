@@ -17,9 +17,9 @@ There are limited bullets to break obstacles in the instance you are trapped. So
 ## Technologies
 
 This app will implement the following
-* Vanilla JavaScript for handling key events
-* Canvas to render the app and its apposite animations
-* Webpack to manage dependencies
+* Object Oriented Programming using only Vanilla JavaScript from game logic to graphics rendering
+* HTML5 Canvas to render animation frames of the game
+* Webpack to manage the JavaScript file dependencies
 
 ## Design
 
@@ -27,10 +27,10 @@ The app will contain a single HTML canvas element where the rendering of the gam
 
 Timeline
 
-Day 2: render the board helicopter and obstacles and walls, Understand basic movement and gravity
+Day 1: render the board helicopter and obstacles and walls, develop and understanding of basic movement and gravity
 
-Day 3: Clean up velocities of obstacles and acceleration for the helicopter, understand how to create audio on events
+Day 2 Clean up velocities of obstacles and acceleration for the helicopter, understand how to create audio on events
 
-Day 4: Generate the game logic of when the player loses by collision of objects, implement basic audio for on click events
+Day 3: Generate the game logic of when the player loses by collision of objects, implement basic audio for on click events
 
-Day 5: style and polish, score keep, extraneous animations smoke fire etc
+Day 4: style and polish, score keep, extraneous animations etc
