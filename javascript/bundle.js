@@ -706,6 +706,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game.js */ "./javascript/game.js");
 
 
+const isWidget = window.location.search.includes("widget=true");
+if (isWidget) {
+  document.querySelector(".title").remove();
+}
+
 const canvas = document.getElementById("canvas");
 canvas.width = 1100;
 canvas.height = 616;

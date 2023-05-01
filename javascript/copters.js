@@ -1,5 +1,10 @@
 import Game from "./game.js";
 
+const isWidget = window.location.search.includes("widget=true");
+if (isWidget) {
+  document.querySelector(".title").remove();
+}
+
 const canvas = document.getElementById("canvas");
 canvas.width = 1100;
 canvas.height = 616;
